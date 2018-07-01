@@ -329,12 +329,16 @@ def start_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
     agent.start()
+    db.session.commit()
+    return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/stop/<int:id>',methods=['GET'])
 def stop_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
     agent.stop()
+    db.session.commit()
+    return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
