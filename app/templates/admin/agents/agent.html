@@ -1,0 +1,32 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_agent %}
+        Add Agent
+    {% else %}
+        Edit Agent
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_agent %}
+                <h1>Add Agent</h1>
+            {% elif assign_agent %}
+                <h1>Select Service to Assign</h1>
+            {% elif unassign_agent %}
+                <h1> Select Service to Revoke</h1>
+            {% else %}
+                <h1>Edit Agent</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

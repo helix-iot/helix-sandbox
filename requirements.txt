@@ -1,0 +1,13 @@
+Flask==1.0.1
+Flask-Bootstrap>=3.3.7.1
+Flask-Login>=0.4.1
+Flask-Migrate>=2.1.1
+Flask-SQLAlchemy>=2.3.2
+sqlalchemy==1.2.0b3
+Flask-WTF>=0.14.2
+Werkzeug>=0.14.1
+WTForms>=2.1
+Simple-AES-Cipher>=1.0.7
+MySQL-python>=1.2.5
+requests==2.18.4
+flask-lxc==0.0.1

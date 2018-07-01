@@ -1,0 +1,12 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Admin Setup{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="center">
+      <h3>Setup the<code>admin</code>account password</h3>
+    <br/>
+    {{ wtf.quick_form(form) }}
+  </div>
+</div>
+{% endblock %}

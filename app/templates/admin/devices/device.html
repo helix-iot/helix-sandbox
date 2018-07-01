@@ -1,0 +1,32 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_device %}
+        Add Device
+    {% else %}
+        Edit Device
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_device %}
+                <h1>Add Device</h1>
+            {% elif assign_device %}
+                <h1>Select Attribute to Assign</h1> 
+            {% elif unassign_device %}
+                <h1>Select Attribute to Revoke</h1>
+            {% else %}
+                <h1>Edit Device</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
