@@ -324,6 +324,17 @@ def add_agent():
                            add_agent=add_agent, form=form,
                            title="Add Agent")
 
+@admin.route('/agents/start/<int:id>',methods=['GET'])
+def start_agent(id):
+    check_admin()
+    agent = Agent.query.get_or_404(id)
+    agent.start()
+
+@admin.route('/agents/stop/<int:id>',methods=['GET'])
+def stop_agent(id):
+    check_admin()
+    agent = Agent.query.get_or_404(id)
+    agent.stop()
 
 @admin.route('/agents/edit/<int:id>', methods=['GET', 'POST'])
 @login_required

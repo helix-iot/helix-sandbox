@@ -131,18 +131,22 @@ class Agent(db.Model):
     services = db.relationship('Service', secondary="agent_association",
       lazy='dynamic'
     )
-    def start_agent(self):
+    def start(self):
         lxc_container = lxc.Container(self.name)
         if lxc_container.start():
             self.status = True
+            return True
         else:
             self.status = False
-    def stop_agent(self):
+            return False
+    def stop(self):
         lxc_container = lxc.Container(self.name)
         if lxc_container.stop():
             self.status = False
+            return True
         else:
             self.status = True
+            return False
     def grant_service(self,endp):
         service = Service.query.filter_by(name=endp.name).first()
         if service and service in self.services:
