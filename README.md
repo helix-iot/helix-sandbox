@@ -1,4 +1,7 @@
 # Helix
+![](img/helix_banner.png)
+
+## About
 
 Middleware for secure IoT provisioning, access and control.
 
@@ -6,7 +9,7 @@ powered by: [Fiware](https://www.fiware.org/)
 
 ## Installing
 
-#### Pre-requisites: 
+#### Pre-requisites:
 
   System with **python**, **lxc**, **pip**, **python-setuptools** and **python-lxc** installed
 
@@ -74,7 +77,7 @@ powered by: [Fiware](https://www.fiware.org/)
   - Start the WebServer with
 
     - Inside the root directory `helix/` run:
-    
+
       ```
       flask run
       ```
