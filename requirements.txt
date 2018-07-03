@@ -10,4 +10,4 @@ WTForms>=2.1
 Simple-AES-Cipher>=1.0.7
 MySQL-python>=1.2.5
 requests==2.18.4
-flask-lxc==0.0.1
+pylxd==2.2.7
