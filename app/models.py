@@ -1,7 +1,10 @@
 from __future__ import print_function
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-import sys, uuid, base64, lxc
+import sys, uuid, base64
+from pylxd import Client
+from time import sleep
+lxc = Client()
 from app import db, login_manager
 from simple_aes_cipher import AESCipher, generate_secret_key
 from os import environ,urandom
@@ -131,22 +134,30 @@ class Agent(db.Model):
     services = db.relationship('Service', secondary="agent_association",
       lazy='dynamic'
     )
+
+    def refresh_status(self):
+        if lxc.containers.get(self.name).status == "Running":
+          self.status = True
+        else:
+          self.status = False
+        return
+
     def start(self):
-        lxc_container = lxc.Container(self.name)
-        if lxc_container.start():
-            self.status = True
-            return True
-        else:
-            self.status = False
-            return False
+        lxc.containers.get(self.name).start()
+        if lxc.containers.get(self.name).status == "Running":
+          self.status = True
+        else:  
+          self.status = False
+        return
+
     def stop(self):
-        lxc_container = lxc.Container(self.name)
-        if lxc_container.stop():
+        lxc.containers.get(self.name).stop()
+        if lxc.containers.get(self.name).status == "Stopped":
             self.status = False
-            return True
         else:
             self.status = True
-            return False
+        return
+
     def grant_service(self,endp):
         service = Service.query.filter_by(name=endp.name).first()
         if service and service in self.services:
@@ -172,6 +183,32 @@ class Broker(db.Model):
     agents = db.relationship('Agent', secondary="broker_association",
       lazy='dynamic'
     )
+
+    def refresh_status(self):
+        if lxc.containers.get(self.name).status == "Running":
+          self.status = True
+        else:
+          self.status = False
+        return
+
+    def start(self):
+        lxc.containers.get(self.name).start()
+        if lxc.containers.get(self.name).status == "Running":
+          self.status = True
+          return True
+        else:  
+          self.status = False
+          return False
+
+    def stop(self):
+        lxc.containers.get(self.name).stop()
+        if lxc.containers.get(self.name).status == "Stopped":
+            self.status = False
+            return True
+        else:
+            self.status = True
+            return False
+
     def grant_agent(self,endp):
         agent = Agent.query.filter_by(name=endp.name).first()
         if agent and agent in self.agents:

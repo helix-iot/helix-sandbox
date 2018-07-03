@@ -1,6 +1,6 @@
 from __future__ import print_function
 import sys,uuid
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for, Response, jsonify
 from flask_login import current_user, login_required
 from . import admin
 from forms import AgentForm, AttributeForm, DeviceForm, ServiceForm, UserAssignForm, AgentAssignForm, ServiceAssignForm, DeviceAssignForm, BrokerForm, BrokerAssignForm
@@ -324,12 +324,22 @@ def add_agent():
                            add_agent=add_agent, form=form,
                            title="Add Agent")
 
+@admin.route('/agents/status', methods=['GET'])
+def refresh_agents():
+    check_admin()
+    agents = Agent.query.all()
+    for agent in agents:
+      agent.refresh_status()
+    db.session.commit()
+    return redirect(url_for('admin.list_agents'))
+
 @admin.route('/agents/start/<int:id>',methods=['GET'])
 def start_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
     agent.start()
     db.session.commit()
+    flash('Start request for container {} submitted successfully.'.format(agent.name))
     return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/stop/<int:id>',methods=['GET'])
@@ -338,6 +348,7 @@ def stop_agent(id):
     agent = Agent.query.get_or_404(id)
     agent.stop()
     db.session.commit()
+    flash('Stop request for container {} submitted successfully.'.format(agent.name))
     return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/edit/<int:id>', methods=['GET', 'POST'])
@@ -423,6 +434,27 @@ def list_brokers():
     brokers = Broker.query.all()
     return render_template('admin/brokers/brokers.html',
                            brokers=brokers, title="Brokers")
+
+
+@admin.route('/brokers/start/<int:id>',methods=['GET'])
+def start_broker(id):
+    check_admin()
+    broker = Broker.query.get_or_404(id)
+    if broker.status() == "Running":
+        return Response(), 204
+    broker.start()
+    db.session.commit()
+    return redirect(url_for('admin.list_brokers'))
+
+@admin.route('/brokers/stop/<int:id>',methods=['GET'])
+def stop_broker(id):
+    check_admin()
+    broker = Broker.query.get_or_404(id)
+    if broker.status() == "Stopped":
+        return Response(), 204
+    broker.stop()
+    db.session.commit()
+    return redirect(url_for('admin.list_brokers'))
 
 @admin.route('/brokers/add', methods=['GET', 'POST'])
 @login_required

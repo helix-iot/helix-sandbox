@@ -52,9 +52,9 @@
                           <td> <i style="color:green" class="fa fa-circle"></i> Online </td>
                           <td>
                             {% if broker.ip == "127.0.0.1" %}
-                              <a href="{{ url_for('api.lxc_start', id=broker.id, category="broker") }}">
+                              <a href="{{ url_for('admin.stop_broker', id=broker.id, category="broker") }}">
                                 <i class="fa fa-stop-circle"></i> Stop
-                              </a>
+                              </a><br>
                             {% endif %}
                             <a href="{{ url_for('admin.edit_broker', id=broker.id) }}">
                               <i class="fa fa-edit"></i> Edit
@@ -72,9 +72,8 @@
                         {% else %}
                           <td> <i style="color:red" class="fa fa-circle"></i> Offline </td>
                           <td>
-                            {#<a href="{{ url_for('api.lxc_stop', id=broker.id, category="broker") }}">#}
                             {% if broker.ip == "127.0.0.1" %}
-                            <a href="#">
+                            <a href="{{ url_for('admin.start_broker', id=broker.id, category="broker") }}">
                               <i class="fa fa-play"></i> Start
                             </a><br>
                             {% endif %}
