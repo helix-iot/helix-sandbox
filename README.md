@@ -11,7 +11,7 @@ powered by: [Fiware](https://www.fiware.org/)
 
 ```
 git clone https://github.com/m4n3dw0lf/helix-sandbox
-cd deploy
+cd compose
 echo "change_to_your_encryption_key" > secrets/aes_key.txt
 sudo docker-compose up -d
 ```
