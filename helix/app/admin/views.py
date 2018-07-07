@@ -319,6 +319,7 @@ def add_agent():
         except:
             flash('Error: agent name or port already registraded.')
         return redirect(url_for('admin.list_agents'))
+    form.encryption.data = True
     form.port.data = 5684
     return render_template('admin/agents/agent.html', action="Add",
                            add_agent=add_agent, form=form,

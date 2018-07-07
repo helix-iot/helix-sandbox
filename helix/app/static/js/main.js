@@ -20,12 +20,23 @@ $(function() {
     }
   });
   $('#encryption').on('click', function(){
-        alert($(this).val())
         if ($(this).val() == "y"){
           $(this).val("n")
+          if ($('#type').val() == "lwm2m") {
+            $('#port').val('5683');
+          }
+          if ($('#type').val() == "mqtt") {
+            $('#port').val('1883');
+          }
         }
         else {
           $(this).val("y")
+          if ($('#type').val() == "lwm2m") {
+            $('#port').val('5684');
+          }
+          if ($('#type').val() == "mqtt") {
+            $('#port').val('8883');
+          }
         }
       }
     );

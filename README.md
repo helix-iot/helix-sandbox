@@ -7,6 +7,17 @@ Middleware for secure IoT provisioning, access and control.
 
 powered by: [Fiware](https://www.fiware.org/)
 
+## Requirements
+
+- Install <b>Docker</b>: https://docs.docker.com/engine/installation/ and <b>docker-compose</b>: https://docs.docker.com/compose/install/.
+
+- Download the template images to prevent first-time delays deploying containers using the web-interface (Recommended)
+
+```
+docker pull fiware/orion
+docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
+```
+
 ## Installing
 
 ```

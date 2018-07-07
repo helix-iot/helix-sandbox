@@ -6,7 +6,7 @@ secrets:
 
 services:
   helix:
-    build: ..
+    build: ../helix
     container_name: helix-sandbox
     ports:
       - 5000:5000

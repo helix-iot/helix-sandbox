@@ -4,7 +4,7 @@ MAINTAINER Angelo Moura "m4n3dw0lf@gmail.com"
 
 WORKDIR /helix
 
-COPY helix .
+COPY . .
 
 RUN curl -sSL https://get.docker.com | sh
 
