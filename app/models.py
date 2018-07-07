@@ -2,9 +2,9 @@ from __future__ import print_function
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import sys, uuid, base64
-from pylxd import Client
+import docker
 from time import sleep
-lxc = Client()
+client = docker.from_env()
 from app import db, login_manager
 from simple_aes_cipher import AESCipher, generate_secret_key
 from os import environ,urandom
@@ -136,23 +136,23 @@ class Agent(db.Model):
     )
 
     def refresh_status(self):
-        if lxc.containers.get(self.name).status == "Running":
+        if client.containers.get(self.name).status == "running":
           self.status = True
         else:
           self.status = False
         return
 
     def start(self):
-        lxc.containers.get(self.name).start()
-        if lxc.containers.get(self.name).status == "Running":
+        client.containers.get(self.name).start()
+        if client.containers.get(self.name).status == "running":
           self.status = True
         else:  
           self.status = False
         return
 
     def stop(self):
-        lxc.containers.get(self.name).stop()
-        if lxc.containers.get(self.name).status == "Stopped":
+        client.containers.get(self.name).stop()
+        if client.containers.get(self.name).status == "stopped":
             self.status = False
         else:
             self.status = True
@@ -185,15 +185,15 @@ class Broker(db.Model):
     )
 
     def refresh_status(self):
-        if lxc.containers.get(self.name).status == "Running":
+        if client.containers.get(self.name).status == "running":
           self.status = True
         else:
           self.status = False
         return
 
     def start(self):
-        lxc.containers.get(self.name).start()
-        if lxc.containers.get(self.name).status == "Running":
+        client.containers.get(self.name).start()
+        if client.containers.get(self.name).status == "running":
           self.status = True
           return True
         else:  
@@ -201,8 +201,8 @@ class Broker(db.Model):
           return False
 
     def stop(self):
-        lxc.containers.get(self.name).stop()
-        if lxc.containers.get(self.name).status == "Stopped":
+        client.containers.get(self.name).stop()
+        if client.containers.get(self.name).status == "exited":
             self.status = False
             return True
         else:
