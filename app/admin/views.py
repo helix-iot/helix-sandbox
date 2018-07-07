@@ -435,25 +435,31 @@ def list_brokers():
     return render_template('admin/brokers/brokers.html',
                            brokers=brokers, title="Brokers")
 
+@admin.route('/brokers/status', methods=['GET'])
+def refresh_brokers():
+    check_admin()
+    brokers = Broker.query.all()
+    for broker in brokers:
+      broker.refresh_status()
+    db.session.commit()
+    return redirect(url_for('admin.list_brokers'))
 
 @admin.route('/brokers/start/<int:id>',methods=['GET'])
 def start_broker(id):
     check_admin()
     broker = Broker.query.get_or_404(id)
-    if broker.status() == "Running":
-        return Response(), 204
     broker.start()
     db.session.commit()
+    flash('Start request for container {} submitted successfully.'.format(broker.name))
     return redirect(url_for('admin.list_brokers'))
 
 @admin.route('/brokers/stop/<int:id>',methods=['GET'])
 def stop_broker(id):
     check_admin()
     broker = Broker.query.get_or_404(id)
-    if broker.status() == "Stopped":
-        return Response(), 204
     broker.stop()
     db.session.commit()
+    flash('Stop request for container {} submitted successfully.'.format(broker.name))
     return redirect(url_for('admin.list_brokers'))
 
 @admin.route('/brokers/add', methods=['GET', 'POST'])

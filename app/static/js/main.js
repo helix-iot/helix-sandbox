@@ -1,4 +1,3 @@
-
 // onload function
 $(function() {
   console.log( "window ready!" );
@@ -30,8 +29,16 @@ $(function() {
         }
       }
     );
+   function observer () {
+     if( window.location.pathname == "/admin/agents"){
+       window.location = "/admin/agents/status"
+     }
+     if( window.location.pathname == "/admin/brokers"){
+       window.location = "/admin/brokers/status"
+     }
+   }
+   setInterval(observer, 8000);
 });
-
 
 
 $("#type").val("lwm2m").trigger('change');

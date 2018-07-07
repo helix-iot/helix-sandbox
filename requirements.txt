@@ -11,3 +11,4 @@ Simple-AES-Cipher>=1.0.7
 MySQL-python>=1.2.5
 requests==2.18.4
 docker-py==1.10.6
+docker==2.5.1

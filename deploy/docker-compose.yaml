@@ -1,0 +1,20 @@
+version: "3.1"
+
+secrets:
+  aes_key:
+    file: ./secrets/aes_key.txt
+
+services:
+  helix:
+    build: ..
+    container_name: helix-sandbox
+    ports:
+      - 5000:5000
+    secrets:
+      - aes_key
+    volumes:
+      - ../:/helix/
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - AES_KEY=/run/secrets/aes_key
+      - FLASK_CONFIG=development

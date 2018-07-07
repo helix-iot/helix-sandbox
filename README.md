@@ -9,78 +9,17 @@ powered by: [Fiware](https://www.fiware.org/)
 
 ## Installing
 
-#### Pre-requisites:
+```
+git clone https://github.com/m4n3dw0lf/helix-sandbox
+cd deploy
+echo "change_to_your_encryption_key" > secrets/aes_key.txt
+sudo docker-compose up -d
+```
 
-  System with **python**, **lxc**, **pip**, **python-setuptools** and **python-lxc** installed
+- Access: http://localhost:5000
 
-  - In debian-based linux distros:
+- Setup the **admin** account
 
-  `sudo apt-get install -y python lxc python-pip python-setuptools python-lxc`
-
-#### Install python requirements
-
-  `pip install -r requirements.txt`
-
-<br>
-
-## Running on Development or Testing environments
-
-  - Start the WebServer
-
-    - syntax:
-      ```
-      python run.py
-      ```
-<br>
-
-## Running on Production environments
-
-  - Set Environment variables:
-
-    - syntax:
-      ```
-      export FLASK_CONFIG=production
-      export FLASK_APP=run.py
-      ```
-
-  - Database Configuration
-
-    - Set the MySQL environment variable
-
-      - syntax:
-        ```
-        export MYSQL_HOST=<MySQL Host, default=localhost>
-        export MYSQL_USER=<MySQL User, default=admin>
-        ```
-
-      - example:
-        ```
-        export MYSQL_HOST=not_localhost
-        export MYSQL_USER=not_admin
-        ```
-
-    - Set the MySQL password inside the `helix/secrets/` directory in a `mysql_password.txt`, as specified below:
-
-      |File | Data |
-      |-|-|
-      |**mysql_password.txt**| The password for the MySQL database |
-
-
-    - Start the Database Migrations directory and populate the MySQL database
-
-      ```
-      flask db init
-      flask db migrate
-      flask db upgrade
-      ```
-
-  - Start the WebServer with
-
-    - Inside the root directory `helix/` run:
-
-      ```
-      flask run
-      ```
 
 ## TO-DO
 
