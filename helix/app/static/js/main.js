@@ -29,17 +29,34 @@ $(function() {
         }
       }
     );
-   function observer () {
-     if( window.location.pathname == "/admin/agents"){
-       window.location = "/admin/agents/status"
-     }
-     if( window.location.pathname == "/admin/brokers"){
-       window.location = "/admin/brokers/status"
-     }
-   }
-   setInterval(observer, 8000);
 });
 
+function observer () {
+  if (window.blurred) { return; }
+  if( window.location.pathname == "/admin/agents"){
+    window.location = "/admin/agents/status"
+  }
+  if( window.location.pathname == "/admin/brokers"){
+    window.location = "/admin/brokers/status"
+  }
+}
+
+(function() {
+    var time = 5000,
+        delta = 100,
+        tid;
+    tid = setInterval(function() {
+        if ( window.blurred ) { return; }
+        time -= delta;
+        if ( time <= 0 ) {
+            clearInterval(tid);
+            observer()
+        }
+    }, delta);
+})();
+
+window.onblur = function() { window.blurred = true; };
+window.onfocus = function() { window.blurred = false; };
 
 $("#type").val("lwm2m").trigger('change');
 $("#type").val("mqtt").trigger('change');
