@@ -334,6 +334,15 @@ def refresh_agents():
     db.session.commit()
     return redirect(url_for('admin.list_agents'))
 
+@admin.route('/agents/create/<int:id>',methods=['GET'])
+def create_agent(id):
+    check_admin()
+    agent = Agent.query.get_or_404(id)
+    agent.create()
+    db.session.commit()
+    flash('Create request for container {} submitted successfully.'.format(agent.name))
+    return redirect(url_for('admin.list_agents'))
+
 @admin.route('/agents/start/<int:id>',methods=['GET'])
 def start_agent(id):
     check_admin()
@@ -383,6 +392,7 @@ def edit_agent(id):
 def delete_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
+    agent.destroy()
     db.session.delete(agent)
     db.session.commit()
     flash('You have successfully deleted the agent.')

@@ -45,7 +45,20 @@
                       {# ENDSERVICES #}
 
                       {# STATUSACTION#}
-                        {% if agent.status %} 
+                        {% if not agent.created %}
+                        <td> <i style="color:red" class="fa fa-circle"></i> Offline </td>
+                          <td>
+                            <a href="{{ url_for('admin.create_agent', id=agent.id, category="agent") }}">
+                              <i class="fa fa-wrench"></i> Create
+                            </a><br>
+                            <a href="{{ url_for('admin.edit_agent', id=agent.id) }}">
+                              <i class="fa fa-edit"></i> Edit
+                            </a><br>
+                            <a href="{{ url_for('admin.delete_agent', id=agent.id) }}">
+                              <i class="fa fa-trash"></i> Delete
+                            </a><br>
+                          </td> 
+                        {% elif agent.status %} 
                         <td> <i style="color:green" class="fa fa-circle"></i> Online </td>
                           <td>
                             <a href="{{ url_for('admin.stop_agent', id=agent.id, category="agent") }}">

@@ -130,6 +130,7 @@ class Agent(db.Model):
     port = db.Column(db.String(5), default="5684")
     encryption = db.Column(db.Boolean, default=False)
     status = db.Column(db.Boolean, default=False)
+    created = db.Column(db.Boolean, default=False)
     config = db.Column(db.Text)
     services = db.relationship('Service', secondary="agent_association",
       lazy='dynamic'
@@ -140,6 +141,38 @@ class Agent(db.Model):
           self.status = True
         else:
           self.status = False
+        return
+
+    def create(self):
+        client.containers.create("m4n3dw0lf/dtls-lightweightm2m-iotagent", 
+            name=self.name, 
+            network="host",
+            volumes={
+                    '/run/secrets/ssl_crt': {
+                    'bind':'/opt/iota-lwm2m/cert.crt',
+                    'mode':'rw'
+                },
+                    '/run/secrets/ssl_key': {
+                    'bind':'/opt/iota-lwm2m/cert.key',
+                    'mode':'rw'
+                }
+            }
+        )
+        self.created = True
+        return
+
+    def destroy(self):
+        try:
+          client.containers.get(self.name).stop()
+        except:
+          pass
+        try:
+          client.containers.get(self.name).remove()
+          self.status = False
+          self.created = False
+        except:
+          self.status = False
+          self.created = False
         return
 
     def start(self):

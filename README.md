@@ -1,11 +1,18 @@
 # Helix
+
+<br>
+
 ![](img/helix_banner.png)
+
+<br>
 
 ## About
 
 Middleware for secure IoT provisioning, access and control.
 
 powered by: [Fiware](https://www.fiware.org/)
+
+<br>
 
 ## Requirements
 
@@ -18,7 +25,18 @@ docker pull fiware/orion
 docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 ```
 
+- If you want to use TLS/DTLS in the Orion and IoT Agents, you need to create a `/run/secrets` directory inside your host and populate with the certificate and key, you can generate a self-signed key-pair using the following command:
+
+```
+sudo mkdir /run/secrets
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /run/secrets/ssl_key -out /run/secrets/ssl_crt
+```
+
+<br>
+
 ## Installing
+
+> Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed. 
 
 ```
 git clone https://github.com/m4n3dw0lf/helix-sandbox
@@ -31,6 +49,7 @@ sudo docker-compose up -d
 
 - Setup the **admin** account
 
+<br>
 
 ## TO-DO
 
