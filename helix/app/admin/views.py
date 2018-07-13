@@ -317,7 +317,7 @@ def add_agent():
             db.session.commit()
             flash('You have successfully added a new agent.')
         except:
-            flash('Error: agent name or port already registraded.')
+            flash('Error: agent name or port already in use.')
         return redirect(url_for('admin.list_agents'))
     form.encryption.data = True
     form.port.data = 5684
@@ -340,7 +340,10 @@ def create_agent(id):
     agent = Agent.query.get_or_404(id)
     agent.create()
     db.session.commit()
-    flash('Create request for container {} submitted successfully.'.format(agent.name))
+    if agent.type == "lwm2m" and agent.encryption:
+      flash('Create request for container {} submitted successfully.'.format(agent.name))
+    else:
+      flash('Container type or protocol not supported yet.')
     return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/start/<int:id>',methods=['GET'])
@@ -455,6 +458,15 @@ def refresh_brokers():
     db.session.commit()
     return redirect(url_for('admin.list_brokers'))
 
+@admin.route('/brokers/create/<int:id>',methods=['GET'])
+def create_broker(id):
+    check_admin()
+    broker = Broker.query.get_or_404(id)
+    broker.create()
+    db.session.commit()
+    flash('Create request for container {} submitted successfully.'.format(broker.name))
+    return redirect(url_for('admin.list_brokers'))
+
 @admin.route('/brokers/start/<int:id>',methods=['GET'])
 def start_broker(id):
     check_admin()
@@ -472,6 +484,7 @@ def stop_broker(id):
     db.session.commit()
     flash('Stop request for container {} submitted successfully.'.format(broker.name))
     return redirect(url_for('admin.list_brokers'))
+
 
 @admin.route('/brokers/add', methods=['GET', 'POST'])
 @login_required
@@ -535,6 +548,7 @@ def edit_broker(id):
 def delete_broker(id):
     check_admin()
     broker = Broker.query.get_or_404(id)
+    broker.destroy()
     db.session.delete(broker)
     db.session.commit()
     flash('You have successfully deleted the broker.')

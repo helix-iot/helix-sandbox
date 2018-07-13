@@ -48,7 +48,20 @@
                       {# ENDSERVICES #}
 
                       {# STATUSACTION#}
-                        {% if broker.status %} 
+                        {% if not broker.created and broker.ip == "127.0.0.1" %}
+						  <td> <i style="color:red" class="fa fa-circle"></i> Offline </td>
+				          <td>
+                            <a href="{{ url_for('admin.create_broker', id=broker.id, category="broker") }}">
+                              <i class="fa fa-wrench"></i> Create
+                            </a><br>
+                            <a href="{{ url_for('admin.edit_broker', id=broker.id) }}">
+                              <i class="fa fa-edit"></i> Edit
+                            </a><br>
+                            <a href="{{ url_for('admin.delete_broker', id=broker.id) }}">
+                              <i class="fa fa-trash"></i> Delete
+                            </a>
+						   </td>
+                        {% elif broker.status %} 
                           <td> <i style="color:green" class="fa fa-circle"></i> Online </td>
                           <td>
                             {% if broker.ip == "127.0.0.1" %}

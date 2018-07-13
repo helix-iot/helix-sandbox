@@ -127,7 +127,7 @@ class Agent(db.Model):
     name = db.Column(db.String(50), unique=True)
     description = db.Column(db.String(200))
     type = db.Column(db.String(50), default="lwm2m")
-    port = db.Column(db.String(5), default="5684")
+    port = db.Column(db.String(5), default="5684", unique=True)
     encryption = db.Column(db.Boolean, default=False)
     status = db.Column(db.Boolean, default=False)
     created = db.Column(db.Boolean, default=False)
@@ -137,28 +137,37 @@ class Agent(db.Model):
     )
 
     def refresh_status(self):
-        if client.containers.get(self.name).status == "running":
-          self.status = True
-        else:
-          self.status = False
+        try:
+            if client.containers.get(self.name).status == "running":
+                self.status = True
+            else:
+                self.status = False
+        except:
+            self.status = False
         return
 
     def create(self):
-        client.containers.create("m4n3dw0lf/dtls-lightweightm2m-iotagent", 
-            name=self.name, 
-            network="host",
-            volumes={
-                    '/run/secrets/ssl_crt': {
-                    'bind':'/opt/iota-lwm2m/cert.crt',
-                    'mode':'rw'
-                },
-                    '/run/secrets/ssl_key': {
-                    'bind':'/opt/iota-lwm2m/cert.key',
-                    'mode':'rw'
-                }
-            }
-        )
-        self.created = True
+        try:
+            if self.type == "lwm2m" and self.encryption:
+                client.containers.create("m4n3dw0lf/dtls-lightweightm2m-iotagent", 
+                   name=self.name, 
+                   network="host",
+                   volumes={
+                            '/run/secrets/ssl_crt': {
+                            'bind':'/opt/iota-lwm2m/cert.crt',
+                            'mode':'rw'
+                           },
+                            '/run/secrets/ssl_key': {
+                            'bind':'/opt/iota-lwm2m/cert.key',
+                            'mode':'rw'
+                           }
+                   }
+                )
+                self.created = True
+            else:
+                self.created = False
+        except:
+            self.created = False
         return
 
     def destroy(self):
@@ -176,19 +185,17 @@ class Agent(db.Model):
         return
 
     def start(self):
-        client.containers.get(self.name).start()
-        if client.containers.get(self.name).status == "running":
-          self.status = True
-        else:  
-          self.status = False
+        try:
+            client.containers.get(self.name).start()
+        except: 
+            pass
         return
 
     def stop(self):
-        client.containers.get(self.name).stop()
-        if client.containers.get(self.name).status == "stopped":
-            self.status = False
-        else:
-            self.status = True
+        try:
+            client.containers.get(self.name).stop()
+        except:
+            pass
         return
 
     def grant_service(self,endp):
@@ -209,38 +216,83 @@ class Broker(db.Model):
     name = db.Column(db.String(50), unique=True)
     description=db.Column(db.String(200))
     ip = db.Column(db.String(60))
-    port = db.Column(db.String(5), default="1026")
+    port = db.Column(db.String(5), default="1026", unique=True)
     tls = db.Column(db.Boolean, default=False)
     status = db.Column(db.Boolean, default=False)
+    created = db.Column(db.Boolean, default=False)
     config = db.Column(db.Text)
     agents = db.relationship('Agent', secondary="broker_association",
       lazy='dynamic'
     )
 
     def refresh_status(self):
-        if client.containers.get(self.name).status == "running":
-          self.status = True
-        else:
-          self.status = False
+        try:
+            if client.containers.get(self.name).status == "running":
+                self.status = True
+            else:
+                self.status = False
+        except:
+            self.status = False
+        return
+
+    def create(self):
+        try:
+             client.containers.create("mongo",
+		command=" --nojournal",
+	     	name="{}_mongodb".format(self.name),
+	     )
+             client.containers.create("fiware/orion", 
+		command=" -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name),
+                name=self.name,
+                ports={"1026/tcp":self.port},
+                links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name))],
+                volumes={
+                         '/run/secrets/ssl_crt': {
+                         'bind':'/etc/orion-ssl/cert.crt',
+                         'mode':'rw'
+                        },  
+                         '/run/secrets/ssl_key': {
+                         'bind':'/etc/orion-ssl/cert.key',
+                         'mode':'rw'
+                        }
+                }
+             )
+             self.created = True
+        except:
+             self.created = False
+        return
+
+    def destroy(self):
+        try:
+          client.containers.get(self.name).stop()
+	  client.containers.get("{}_mongodb".format(self.name)).stop()
+        except:
+          pass
+        #try:
+	client.containers.get("{}_mongodb".format(self.name)).remove()
+        client.containers.get(self.name).remove()
+        self.status = False
+        self.created = False
+        #except:
+        #    self.status = False
+        #    self.created = False
         return
 
     def start(self):
+        #try:
+	client.containers.get("{}_mongodb".format(self.name)).start()
         client.containers.get(self.name).start()
-        if client.containers.get(self.name).status == "running":
-          self.status = True
-          return True
-        else:  
-          self.status = False
-          return False
+        #except: 
+        #    pass
+        return
 
     def stop(self):
-        client.containers.get(self.name).stop()
-        if client.containers.get(self.name).status == "exited":
-            self.status = False
-            return True
-        else:
-            self.status = True
-            return False
+        try:
+            client.containers.get(self.name).stop()
+	    client.containers.get("{}_mongodb".format(self.name)).stop()
+        except:
+            pass
+        return
 
     def grant_agent(self,endp):
         agent = Agent.query.filter_by(name=endp.name).first()
@@ -249,6 +301,7 @@ class Broker(db.Model):
         if not agent:
           return
         self.agents.append(agent)
+
     def revoke_agent(self,endp):
         agent = Service.query.filter_by(name=endp.name).first()
         if not agent or not agent in self.agents:
