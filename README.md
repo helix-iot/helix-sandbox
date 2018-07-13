@@ -21,8 +21,9 @@ powered by: [Fiware](https://www.fiware.org/)
 - Download the template images to prevent first-time delays deploying containers using the web-interface (Recommended)
 
 ```
-docker pull fiware/orion
-docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
+sudo docker pull mongo
+sudo docker pull fiware/orion
+sudo docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 ```
 
 - If you want to use TLS/DTLS in the Orion and IoT Agents, you need to create a `/run/secrets` directory inside your host and populate with the certificate and key, you can generate a self-signed key-pair using the following command:
@@ -42,6 +43,16 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /run/secrets/ss
 git clone https://github.com/m4n3dw0lf/helix-sandbox
 cd compose
 echo "change_to_your_encryption_key" > secrets/aes_key.txt
+sudo docker-compose up -d
+```
+
+## Updating
+
+```
+cd helix-sandbox
+git pull
+sudo docker-compose down
+rm helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
 
