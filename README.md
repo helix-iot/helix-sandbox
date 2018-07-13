@@ -51,8 +51,9 @@ sudo docker-compose up -d
 ```
 cd helix-sandbox
 git pull
+cd compose
 sudo docker-compose down
-rm helix/app/db/helix.sqlite
+rm ../helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
 
