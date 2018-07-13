@@ -29,8 +29,8 @@ sudo docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 - If you want to use TLS/DTLS in the Orion and IoT Agents, you need to create a `/run/secrets` directory inside your host and populate with the certificate and key, you can generate a self-signed key-pair using the following command:
 
 ```
-sudo mkdir /run/secrets
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /run/secrets/ssl_key -out /run/secrets/ssl_crt
+sudo mkdir -p /opt/secrets
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ssl_key -out /opt/secrets/ssl_crt
 ```
 
 <br>

@@ -153,11 +153,11 @@ class Agent(db.Model):
                    name=self.name, 
                    network="host",
                    volumes={
-                            '/run/secrets/ssl_crt': {
+                            '/opt/secrets/ssl_crt': {
                             'bind':'/opt/iota-lwm2m/cert.crt',
                             'mode':'rw'
                            },
-                            '/run/secrets/ssl_key': {
+                            '/opt/secrets/ssl_key': {
                             'bind':'/opt/iota-lwm2m/cert.key',
                             'mode':'rw'
                            }
@@ -241,17 +241,21 @@ class Broker(db.Model):
 		command=" --nojournal",
 	     	name="{}_mongodb".format(self.name),
 	     )
+             if self.tls:
+                cmd = " -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name)
+             else:
+                cmd = " -dbhost {}_mongodb".format(self.name)
              client.containers.create("fiware/orion", 
-		command=" -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name),
+		command=cmd,
                 name=self.name,
                 ports={"1026/tcp":self.port},
                 links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name))],
                 volumes={
-                         '/run/secrets/ssl_crt': {
+                         '/opt/secrets/ssl_crt': {
                          'bind':'/etc/orion-ssl/cert.crt',
                          'mode':'rw'
                         },  
-                         '/run/secrets/ssl_key': {
+                         '/opt/secrets/ssl_key': {
                          'bind':'/etc/orion-ssl/cert.key',
                          'mode':'rw'
                         }
