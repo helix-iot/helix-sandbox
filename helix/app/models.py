@@ -62,8 +62,8 @@ class Attribute(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(200))
     mapping = db.Column(db.String(60))
+    operation = db.Column(db.String(4))
     name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
     device = db.relationship('Device', secondary="device_association",
       lazy='dynamic'
     )
@@ -96,7 +96,6 @@ class Service(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     type = db.Column(db.String(200))
-    readonly = db.Column(db.Boolean, default=False)
     description = db.Column(db.String(200))
     devices = db.relationship('Device', secondary="service_association",
       lazy='dynamic'

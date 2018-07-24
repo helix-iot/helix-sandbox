@@ -24,7 +24,6 @@ class AgentForm(FlaskForm):
 class ServiceForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    readonly = BooleanField('Read-only')
     submit = SubmitField('Submit')
 
 class DeviceForm(FlaskForm):

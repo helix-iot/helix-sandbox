@@ -2,7 +2,7 @@
 
 <br>
 
-![](img/helix_banner.png)
+![](helix/app/static/img/helix-banner.jpg)
 
 <br>
 

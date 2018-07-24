@@ -203,7 +203,6 @@ def add_service():
     if form.validate_on_submit():
         service = Service(name=form.name.data,
                       description=form.description.data,
-                      readonly=form.readonly.data
                      )
         try:
             db.session.add(service)
@@ -226,7 +225,6 @@ def edit_service(id):
     if form.validate_on_submit():
         service.name = form.name.data
         service.description = form.description.data
-        service.readonly = form.readonly.data
         db.session.commit()
         flash('You have successfully edited the service.')
 
@@ -235,7 +233,6 @@ def edit_service(id):
 
     form.description.data = service.description
     form.name.data = service.name
-    form.readonly.data = service.readonly
     return render_template('admin/services/service.html', action="Edit",
                            add_service=add_service, form=form,
                            service=service, title="Edit Service")
