@@ -61,9 +61,11 @@ user_device_association = db.Table('user_device_association',
 class Attribute(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(200))
-    mapping = db.Column(db.String(60))
+    mapping = db.Column(db.String(20), unique=True)
     operation = db.Column(db.String(4))
+    mandatory = db.Column(db.Boolean, default=False)
     name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
     device = db.relationship('Device', secondary="device_association",
       lazy='dynamic'
     )
@@ -72,6 +74,7 @@ class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     ip = db.Column(db.String(60), unique=True)
+    mapping = db.Column(db.String(20), unique=True)
     description = db.Column(db.String(200))
     attributes = db.relationship('Attribute',secondary="device_association",
       lazy='dynamic'

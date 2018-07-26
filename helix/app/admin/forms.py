@@ -15,7 +15,7 @@ class BrokerForm(FlaskForm):
 
 class AgentForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    type = SelectField('Type',choices=[("lwm2m","LWM2M"), ("mqtt","MQTT")])
+    type = SelectField('Type',choices=[("lwm2m","LWM2M")])
     port = StringField('Port')
     encryption = BooleanField('TLS/DTLS')
     description = StringField('Description')
@@ -27,15 +27,18 @@ class ServiceForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class DeviceForm(FlaskForm):
+    mapping = StringField('Object ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     ip = StringField('IP Address', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class AttributeForm(FlaskForm):
+    mapping = StringField('Resource ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
-    type = SelectField('Data Type',choices=[("integer","Integer"), ("float","Float"), ("string","String"), ("boolean","Boolean") ])
-    mapping = StringField('Mapping', validators=[DataRequired()])
+    type = SelectField('Type',choices=[("Integer","Integer"), ("Float","Float"), ("String","String"), ("Boolean","Boolean")],validators=[DataRequired()])
+    operation = SelectField('Operation',choices=[("R","R"), ("W","W"), ("RW","RW"), ("E","E")],validators=[DataRequired()])
+    mandatory = BooleanField('Mandatory')
     description = StringField('Description')
     submit = SubmitField('Submit')
 

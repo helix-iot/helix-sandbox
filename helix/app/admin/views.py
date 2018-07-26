@@ -30,7 +30,9 @@ def add_attribute():
                               type=form.type.data,
                               mapping = form.mapping.data,
                               description=form.description.data,
-                            )
+                              mandatory=form.mandatory.data,
+                              operation=form.operation.data
+                              )
         try:
             db.session.add(attribute)
             db.session.commit()
@@ -55,6 +57,8 @@ def edit_attribute(id):
         attribute.type = form.type.data
         attribute.mapping = form.mapping.data
         attribute.description = form.description.data
+        attribute.operation = form.operation.data
+        attribute.mandatory = form.mandatory.data
         db.session.commit()
         flash('You have successfully edited the attribute.')
 
@@ -63,6 +67,10 @@ def edit_attribute(id):
 
     form.description.data = attribute.description
     form.name.data = attribute.name
+    form.operation.data = attribute.operation
+    form.mapping.data = attribute.mapping
+    form.type.data = attribute.type
+    form.mandatory.data = attribute.mandatory
     return render_template('admin/attributes/attribute.html', action="Edit",
                            add_attribute=add_attribute, form=form,
                            attribute=attribute, title="Edit Attribute")
@@ -98,6 +106,7 @@ def add_device():
     form = DeviceForm()
     if form.validate_on_submit():
         device = Device(name=form.name.data,
+                        mapping = form.mapping.data,
                         description=form.description.data,
                         ip=form.ip.data
                        )
@@ -124,6 +133,7 @@ def edit_device(id):
         device.name = form.name.data
         device.description = form.description.data
         device.ip = form.ip.data
+        device.mapping = form.mapping.data
         db.session.commit()
         flash('You have successfully edited the device.')
 
@@ -132,6 +142,8 @@ def edit_device(id):
 
     form.description.data = device.description
     form.name.data = device.name
+    form.mapping.data = device.mapping
+    form.ip.data = device.ip
     return render_template('admin/devices/device.html', action="Edit",
                            add_device=add_device, form=form,
                            device=device, title="Edit Device")
