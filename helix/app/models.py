@@ -24,22 +24,22 @@ AES_KEY = None
 secret_key = None
 
 device_association = db.Table('device_association',
-  db.Column('attribute_id',db.Integer,
-             db.ForeignKey('attribute.id')),
+  db.Column('service_id',db.Integer,
+             db.ForeignKey('service.id')),
   db.Column('device_id',db.Integer,
             db.ForeignKey('device.id'))
 )
 
 service_association = db.Table('service_association',
-  db.Column('device_id',db.Integer,
-             db.ForeignKey('device.id')),
+  db.Column('attribute_id',db.Integer,
+             db.ForeignKey('attribute.id')),
   db.Column('service_id',db.Integer,
              db.ForeignKey('service.id'))
 )
 
 agent_association = db.Table('agent_association',
-  db.Column('service_id',db.Integer,
-            db.ForeignKey('service.id')),
+  db.Column('device_id',db.Integer,
+            db.ForeignKey('device.id')),
   db.Column('agent_id',db.Integer,
              db.ForeignKey('agent.id'))
 )
@@ -66,7 +66,7 @@ class Attribute(db.Model):
     mandatory = db.Column(db.Boolean, default=False)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    device = db.relationship('Device', secondary="device_association",
+    services = db.relationship('Service', secondary="service_association",
       lazy='dynamic'
     )
 
@@ -74,15 +74,44 @@ class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     ip = db.Column(db.String(60), unique=True)
-    mapping = db.Column(db.String(20), unique=True)
     description = db.Column(db.String(200))
-    attributes = db.relationship('Attribute',secondary="device_association",
+    services = db.relationship('Service',secondary="device_association",
       lazy='dynamic'
     )
-    services = db.relationship('Service',secondary="service_association",
+    agents = db.relationship('Agent',secondary="agent_association",
       lazy='dynamic'
     )
-    def grant_attribute(self,endp):
+    def grant_service(self,endp):
+        service = Service.query.filter_by(name=endp.name).first()
+        if service and service in self.services:
+          return
+        if not service:
+          return
+        self.services.append(service)
+    def revoke_service(self,endp):
+        service = Service.query.filter_by(name=endp.name).first()
+        if not service or not service in self.services:
+	  return
+        self.services.remove(service)
+
+class Service(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    mapping = db.Column(db.String(20), unique=True)
+    type = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    attributes = db.relationship('Attribute', secondary="service_association",
+      lazy='dynamic'
+    )
+    devices = db.relationship('Device', secondary="device_association",
+      lazy='dynamic'
+    )
+    def has_attribute(self,name):
+        attribute = Attribute.query.filter_by(name=name).first()
+        if not attribute or not attribute in self.attributes:
+          return False
+        return True
+    def grant_attribute(self,endp):                                          
         attribute = Attribute.query.filter_by(name=endp.name).first()
         if attribute and attribute in self.attributes:
           return
@@ -92,37 +121,8 @@ class Device(db.Model):
     def revoke_attribute(self,endp):
         attribute = Attribute.query.filter_by(name=endp.name).first()
         if not attribute or not attribute in self.attributes:
-	  return
+          return
         self.attributes.remove(attribute)
-
-class Service(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    type = db.Column(db.String(200))
-    description = db.Column(db.String(200))
-    devices = db.relationship('Device', secondary="service_association",
-      lazy='dynamic'
-    )
-    agents = db.relationship('Agent', secondary="agent_association",
-      lazy='dynamic'
-    )
-    def has_device(self,name):
-        device = Device.query.filter_by(name=name).first()
-        if not device or not device in self.devices:
-          return False
-        return True
-    def grant_device(self,endp):                                          
-        device = Device.query.filter_by(name=endp.name).first()
-        if device and device in self.devices:
-          return
-        if not device:
-          return
-        self.devices.append(device)
-    def revoke_device(self,endp):
-        device = Device.query.filter_by(name=endp.name).first()
-        if not device or not device in self.devices:
-          return
-        self.devices.remove(device)
 
 class Agent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -134,7 +134,7 @@ class Agent(db.Model):
     status = db.Column(db.Boolean, default=False)
     created = db.Column(db.Boolean, default=False)
     config = db.Column(db.Text)
-    services = db.relationship('Service', secondary="agent_association",
+    devices = db.relationship('Device', secondary="agent_association",
       lazy='dynamic'
     )
 
@@ -200,18 +200,18 @@ class Agent(db.Model):
             pass
         return
 
-    def grant_service(self,endp):
-        service = Service.query.filter_by(name=endp.name).first()
-        if service and service in self.services:
+    def grant_device(self,endp):
+        device = Device.query.filter_by(name=endp.name).first()
+        if device and device in self.devices:
           return
-        if not service:
+        if not device:
           return
-        self.services.append(service)
-    def revoke_service(self,endp):
-        service = Service.query.filter_by(name=endp.name).first()
-        if not service or not service in self.services:
+        self.devices.append(device)
+    def revoke_device(self,endp):
+        device = Device.query.filter_by(name=endp.name).first()
+        if not device or not device in self.devices:
           return
-        self.services.remove(service)
+        self.devices.remove(device)
 
 class Broker(db.Model):
     id = db.Column(db.Integer, primary_key=True)

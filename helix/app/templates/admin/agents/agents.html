@@ -20,7 +20,7 @@
                   <th width="10%"> Name </th>
                   <th width="10%"> Type </th>
                   <th width="5%"> Port </th>
-                  <th width="15%">Services </th>
+                  <th width="15%">Devices </th>
                   <th width="10%">Status </th>
                   <th width="10%">Action</th>
                 </tr>
@@ -36,9 +36,9 @@
 
                       {# SERVICES #}
                       <td>
-                      {% if agent.services %}
-                          {% for service in agent.services %}
-                            <p>{{ service.name }}</p>
+                      {% if agent.devices %}
+                          {% for device in agent.devices %}
+                            <p>{{ device.name }}</p>
                           {% endfor %}
                       {% endif %}
                       </td>

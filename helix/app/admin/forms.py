@@ -22,12 +22,12 @@ class AgentForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class ServiceForm(FlaskForm):
+    mapping = StringField('Object ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class DeviceForm(FlaskForm):
-    mapping = StringField('Object ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     ip = StringField('IP Address', validators=[DataRequired()])
@@ -42,18 +42,19 @@ class AttributeForm(FlaskForm):
     description = StringField('Description')
     submit = SubmitField('Submit')
 
-class DeviceAssignForm(FlaskForm):
+
+class ServiceAssignForm(FlaskForm):
     attribute = QuerySelectField(query_factory=lambda: Attribute.query.all(),
                                     get_label="name")
     submit = SubmitField('Submit')
 
-class ServiceAssignForm(FlaskForm):
-    device = QuerySelectField(query_factory=lambda: Device.query.all(),
+class DeviceAssignForm(FlaskForm):
+    service = QuerySelectField(query_factory=lambda: Service.query.all(),
                                     get_label="name")
     submit = SubmitField('Submit')
 
 class AgentAssignForm(FlaskForm):
-    service = QuerySelectField(query_factory=lambda: Service.query.all(),
+    device = QuerySelectField(query_factory=lambda: Device.query.all(),
                                     get_label="name")
     submit = SubmitField('Submit')
 

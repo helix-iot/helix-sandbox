@@ -18,7 +18,7 @@
                 <tr>
                   <th width="15%"> Name </th>
                   <th width="15%"> IP </th>
-                  <th width="30%"> Attributes </th>
+                  <th width="30%"> Services </th>
                   <th width="30%"> Action </th>
                 </tr>
               </thead>
@@ -28,9 +28,9 @@
                   <td> {{ device.name }} </td>
                   <td> {{ device.ip }} </td>
                   <td> 
-                    {% if device.attributes %}
-                      {% for attribute in device.attributes %}
-                        <p>{{ attribute.name }}</p>
+                    {% if device.services %}
+                      {% for service in device.services %}
+                        <p>{{ service.name }}</p>
                       {% endfor %}
                     {% endif %}
                   </td>

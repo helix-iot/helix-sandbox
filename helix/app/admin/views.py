@@ -106,7 +106,6 @@ def add_device():
     form = DeviceForm()
     if form.validate_on_submit():
         device = Device(name=form.name.data,
-                        mapping = form.mapping.data,
                         description=form.description.data,
                         ip=form.ip.data
                        )
@@ -133,7 +132,6 @@ def edit_device(id):
         device.name = form.name.data
         device.description = form.description.data
         device.ip = form.ip.data
-        device.mapping = form.mapping.data
         db.session.commit()
         flash('You have successfully edited the device.')
 
@@ -170,7 +168,7 @@ def assign_device(id):
     form = DeviceAssignForm(obj=device)
     assign_device = True
     if form.validate_on_submit():
-        device.grant_attribute(form.attribute.data)
+        device.grant_service(form.service.data)
         db.session.add(device)
         db.session.commit()
         flash('You have successfully assigned an device.')
@@ -188,7 +186,7 @@ def revoke_device(id):
     form = DeviceAssignForm(obj=device)
     unassign_device = True
     if form.validate_on_submit():
-        device.revoke_attribute(form.attribute.data)
+        device.revoke_service(form.service.data)
         db.session.add(device)
         db.session.commit()
         flash('You have successfully revoked an device.')
@@ -215,6 +213,7 @@ def add_service():
     if form.validate_on_submit():
         service = Service(name=form.name.data,
                       description=form.description.data,
+                      mapping = form.mapping.data,
                      )
         try:
             db.session.add(service)
@@ -237,6 +236,7 @@ def edit_service(id):
     if form.validate_on_submit():
         service.name = form.name.data
         service.description = form.description.data
+        service.mapping = form.mapping.data
         db.session.commit()
         flash('You have successfully edited the service.')
 
@@ -272,7 +272,7 @@ def assign_service(id):
     form = ServiceAssignForm(obj=service)
     assign_service = True
     if form.validate_on_submit():
-        service.grant_device(form.device.data)
+        service.grant_attribute(form.attribute.data)
         db.session.add(service)
         db.session.commit()
         flash('You have successfully assigned an device.')
@@ -290,7 +290,7 @@ def revoke_service(id):
     form = ServiceAssignForm(obj=service)
     unassign_service = True
     if form.validate_on_submit():
-        service.revoke_device(form.device.data)
+        service.revoke_attribute(form.attribute.data)
         db.session.add(service)
         db.session.commit()
         flash('You have successfully revoked an device.')
@@ -421,7 +421,7 @@ def assign_agent(id):
     form = AgentAssignForm(obj=agent)
     assign_agent = True
     if form.validate_on_submit():
-        agent.grant_service(form.service.data)
+        agent.grant_device(form.device.data)
         db.session.add(agent)
         db.session.commit()
         flash('You have successfully assigned an device.')
@@ -439,7 +439,7 @@ def revoke_agent(id):
     form = AgentAssignForm(obj=agent)
     unassign_agent = True
     if form.validate_on_submit():
-        agent.revoke_service(form.service.data)
+        agent.revoke_device(form.device.data)
         db.session.add(agent)
         db.session.commit()
         flash('You have successfully revoked an device.')

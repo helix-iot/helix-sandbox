@@ -16,8 +16,9 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="30%"> Name </th>
-                  <th width="35%"> Devices </th>
+                  <th width="25%"> Name </th>
+                  <th width="15%"> Object ID </th>
+                  <th width="30%"> Attributes </th>
                   <th width="30%"> Action </th>
                 </tr>
               </thead>
@@ -25,11 +26,12 @@
               {% for service in services %}
                 <tr>
                   <td> {{ service.name }} </td>
-                  {% if service.devices %}
+                  <td> {{ service.mapping }} </td>
+                  {% if service.attributes %}
                    <td>
-                     {% for device in service.devices %}
-                       <p>{{ device.name }}</p>
-                     {% endfor %}
+                     {% for attribute in service.attributes %}
+                       <p>{{ attribute.name }}</p>
+                       {% endfor %}
                    </td>
 				  {% else %}
 					<td>
