@@ -418,6 +418,9 @@ def delete_agent(id):
 def assign_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
+    if not agent.status:
+        flash('Can\'t assign while Agent is Offline.')
+        return redirect(url_for('admin.list_agents'))
     form = AgentAssignForm(obj=agent)
     assign_agent = True
     if form.validate_on_submit():
