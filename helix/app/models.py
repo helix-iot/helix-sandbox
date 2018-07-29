@@ -2,7 +2,7 @@ from __future__ import print_function
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import sys, uuid, base64
-import docker
+import docker,json
 from time import sleep
 client = docker.from_env()
 from app import db, login_manager
@@ -212,6 +212,26 @@ class Agent(db.Model):
           return
         if not device:
           return
+        message = {}
+        message['services'] = []
+        services = device.services
+        srvs = []
+        for s in services:
+          service = {}
+          attrs = s.attributes
+          attributes = []
+          for a in attrs:
+              attribute = {}
+              attribute['name'] = a.name
+              attribute['type'] = a.type
+              attributes.append(attribute)
+          service['attributes'] = attributes
+          service['type'] = s.name
+          resource = s.name.lower().split()
+          service['resource'] = "/" + "_".join(resource)
+          srvs.append(service)
+        message['services'] = srvs
+        print("\n\n"+json.dumps(message)+"\n\n")
         self.devices.append(device)
     def revoke_device(self,endp):
         device = Device.query.filter_by(name=endp.name).first()
