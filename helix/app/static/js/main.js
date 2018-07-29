@@ -53,7 +53,7 @@ function observer () {
 }
 
 (function() {
-    var time = 5000,
+    var time = 10000,
         delta = 100,
         tid;
     tid = setInterval(function() {

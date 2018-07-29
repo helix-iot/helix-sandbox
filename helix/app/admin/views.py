@@ -140,7 +140,6 @@ def edit_device(id):
 
     form.description.data = device.description
     form.name.data = device.name
-    form.mapping.data = device.mapping
     form.ip.data = device.ip
     return render_template('admin/devices/device.html', action="Edit",
                            add_device=add_device, form=form,
@@ -244,6 +243,7 @@ def edit_service(id):
         return redirect(url_for('admin.list_services'))
 
     form.description.data = service.description
+    form.mapping.data = service.mapping
     form.name.data = service.name
     return render_template('admin/services/service.html', action="Edit",
                            add_service=add_service, form=form,
@@ -536,7 +536,6 @@ def edit_broker(id):
     form = BrokerForm(obj=broker)
     if form.validate_on_submit():
         broker.name = form.name.data
-        broker.type = form.type.data
         broker.ip = form.ip.data
         broker.port = form.port.data
         broker.tls = form.tls.data
@@ -546,7 +545,6 @@ def edit_broker(id):
         # redirect to the brokers page
         return redirect(url_for('admin.list_brokers'))
     form.name.data = broker.name
-    form.type.data = broker.type
     form.ip.data = broker.ip
     form.port.data = broker.port
     form.tls.data = broker.tls
@@ -577,6 +575,8 @@ def assign_broker(id):
     form = BrokerAssignForm(obj=broker)
     assign_broker = True
     if form.validate_on_submit():
+        agent = Agent.query.filter_by(name=form.agent.data.name).first()
+	agent.set_broker(broker.ip)
         broker.grant_agent(form.agent.data)
         db.session.add(broker)
         db.session.commit()

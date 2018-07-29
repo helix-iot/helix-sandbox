@@ -150,7 +150,7 @@ class Agent(db.Model):
 
     def create(self):
         try:
-            if self.type == "lwm2m" and self.encryption:
+            if self.type == "lwm2m":
                 client.containers.create("m4n3dw0lf/dtls-lightweightm2m-iotagent", 
                    name=self.name, 
                    network="host",
@@ -170,6 +170,12 @@ class Agent(db.Model):
                 self.created = False
         except:
             self.created = False
+        return
+
+    def set_broker(self,broker):
+        if self.created == True:
+            client.containers.get(self.name).exec_run("sed -i '62,78s/localhost/{}/' config-secure.js".format(broker))
+            client.containers.get(self.name).restart()
         return
 
     def destroy(self):
@@ -212,6 +218,8 @@ class Agent(db.Model):
         if not device or not device in self.devices:
           return
         self.devices.remove(device)
+
+
 
 class Broker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -309,7 +317,7 @@ class Broker(db.Model):
         self.agents.append(agent)
 
     def revoke_agent(self,endp):
-        agent = Service.query.filter_by(name=endp.name).first()
+        agent = Agent.query.filter_by(name=endp.name).first()
         if not agent or not agent in self.agents:
           return
         self.agents.remove(agent)
