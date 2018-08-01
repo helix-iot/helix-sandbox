@@ -2,7 +2,7 @@ from __future__ import print_function
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import sys, uuid, base64
-import docker,json
+import docker,json,requests
 from time import sleep
 client = docker.from_env()
 from app import db, login_manager
@@ -133,6 +133,9 @@ class Agent(db.Model):
     encryption = db.Column(db.Boolean, default=False)
     status = db.Column(db.Boolean, default=False)
     created = db.Column(db.Boolean, default=False)
+    broker_ip = db.Column(db.String(50), default="localhost")
+    broker_name = db.Column(db.String(50))
+    broker_context = db.Column(db.String(5), default="http")
     config = db.Column(db.Text)
     devices = db.relationship('Device', secondary="agent_association",
       lazy='dynamic'
@@ -172,10 +175,14 @@ class Agent(db.Model):
             self.created = False
         return
 
-    def set_broker(self,broker):
+    def set_broker(self,broker_ip,broker_name,broker_context):
         if self.created == True:
-            client.containers.get(self.name).exec_run("sed -i '62,78s/localhost/{}/' config-secure.js".format(broker))
+            client.containers.get(self.name).exec_run("sed -i '62,78s/{}/{}/' config-secure.js".format(self.broker_ip,broker_ip))
+            # Need to finish: Replace if not using SSL on Orion Broker and vice-versa
+            #client.containers.get(self.name).exec_run("sed -i '64s/{}/{}/' config-secure.js".format(self.broker_context,broker_context))
             client.containers.get(self.name).restart()
+            self.broker_ip = broker_ip
+            self.broker_name = broker_name
         return
 
     def destroy(self):
@@ -216,23 +223,66 @@ class Agent(db.Model):
         message['services'] = []
         services = device.services
         srvs = []
+        message2 = {}
+        message2['devices'] = []
+        dvcs = []
         for s in services:
           service = {}
+          dev = {}
+          dev['internal_attributes'] = {}
           attrs = s.attributes
           attributes = []
+          lwm2m_attributes = {}
           for a in attrs:
+              lwm2m_attributes[a.name] = {
+                    "objectType":int(s.mapping),
+                    "objectInstance": int(0),
+                    "objectResource":int(a.mapping)
+              }
               attribute = {}
               attribute['name'] = a.name
               attribute['type'] = a.type
               attributes.append(attribute)
           service['attributes'] = attributes
+          dev['attributes'] = attributes
+          dev['internal_attributes']['lwm2mResourceMapping'] = lwm2m_attributes
           service['type'] = s.name
-          resource = s.name.lower().split()
+          resource = s.name.lower().split() 
           service['resource'] = "/" + "_".join(resource)
+          service['apikey'] = "" # Need to change later
+          dev['device_id'] = device.name
+          dev['entity_type'] = "Device"
           srvs.append(service)
+          dvcs.append(dev)
+        message2['devices'] = dvcs
         message['services'] = srvs
         print("\n\n"+json.dumps(message)+"\n\n")
+        print("\n\n"+json.dumps(message2)+"\n\n")        
+        headers = {
+          "fiware-service":"{}".format("_".join(resource)),
+          "fiware-servicepath":"/{}".format("_".join(resource)),
+          "Content-Type":"application/json"
+        }
+        for x in client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"].keys():
+            gateway = client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"][x]["Gateway"]
+            if self.encryption:
+              context = "https"
+            else:
+              context = "http"
+            service_registration = requests.post("{}://{}:4041/iot/services".format(context,gateway),
+                       headers=headers,
+                       json=message,
+                       verify=False
+                     )
+            print("\n\n"+service_registration.text+"\n\n")
+            device_registration = requests.post('{}://{}:4041/iot/devices'.format(context,gateway),
+                       headers=headers,
+                       json=message2,
+                       verify=False
+                    )
+            print("\n\n"+device_registration.text+"\n\n")
         self.devices.append(device)
+
     def revoke_device(self,endp):
         device = Device.query.filter_by(name=endp.name).first()
         if not device or not device in self.devices:

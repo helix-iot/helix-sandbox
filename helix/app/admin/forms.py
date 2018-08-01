@@ -24,12 +24,12 @@ class AgentForm(FlaskForm):
 class ServiceForm(FlaskForm):
     mapping = StringField('Object ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
+    description = StringField('Description')
     submit = SubmitField('Submit')
 
 class DeviceForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
+    description = StringField('Description')
     ip = StringField('IP Address', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

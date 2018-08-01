@@ -424,6 +424,10 @@ def assign_agent(id):
     form = AgentAssignForm(obj=agent)
     assign_agent = True
     if form.validate_on_submit():
+        broker = Broker.query.filter_by(name=agent.broker_name).first()
+        if not agent.broker_name or not broker.status:
+            flash('Can\'t assign, check if the Agent is associated with a Broker and if the Broker is Online.')
+            return redirect(url_for('admin.list_agents'))
         agent.grant_device(form.device.data)
         db.session.add(agent)
         db.session.commit()
@@ -520,7 +524,7 @@ def add_broker():
         return redirect(url_for('admin.list_brokers'))
 
     form.port.data = "1026"
-    form.ip.data = "127.0.0.1"
+    form.ip.data = "localhost"
 
     return render_template('admin/brokers/broker.html', action="Add",
                            add_broker=add_broker, form=form,
@@ -576,7 +580,13 @@ def assign_broker(id):
     assign_broker = True
     if form.validate_on_submit():
         agent = Agent.query.filter_by(name=form.agent.data.name).first()
-	agent.set_broker(broker.ip)
+        if not agent.created:
+          flash('Can\'t assign, Agent hasn\'t been created.')
+          return redirect(url_for('admin.list_brokers'))
+        context = "http"
+        if broker.tls:
+          context = "https"
+	agent.set_broker(broker.ip,broker.name,context)
         broker.grant_agent(form.agent.data)
         db.session.add(broker)
         db.session.commit()

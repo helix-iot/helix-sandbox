@@ -45,7 +45,7 @@
                       {# ENDSERVICES #}
 
                       {# STATUSACTION#}
-                        {% if not broker.created and broker.ip == "127.0.0.1" %}
+                        {% if not broker.created and ((broker.ip == "127.0.0.1" or broker.ip == "localhost")) %}
 						  <td> <i style="color:red" class="fa fa-circle"></i> Offline </td>
 				          <td>
                             <a href="{{ url_for('admin.create_broker', id=broker.id, category="broker") }}">
@@ -61,7 +61,7 @@
                         {% elif broker.status %} 
                           <td> <i style="color:green" class="fa fa-circle"></i> Online </td>
                           <td>
-                            {% if broker.ip == "127.0.0.1" %}
+                            {% if broker.ip == "127.0.0.1" or broker.ip == "localhost" %}
                               <a href="{{ url_for('admin.stop_broker', id=broker.id, category="broker") }}">
                                 <i class="fa fa-stop-circle"></i> Stop
                               </a><br>
@@ -82,7 +82,7 @@
                         {% else %}
                           <td> <i style="color:red" class="fa fa-circle"></i> Offline </td>
                           <td>
-                            {% if broker.ip == "127.0.0.1" %}
+                            {% if broker.ip == "127.0.0.1" or broker.ip == "localhost" %}
                             <a href="{{ url_for('admin.start_broker', id=broker.id, category="broker") }}">
                               <i class="fa fa-play"></i> Start
                             </a><br>
