@@ -2,7 +2,7 @@
 
 <br>
 
-![](helix/app/static/img/helix-banner.jpg)
+<img src="helix/app/static/img/helix-banner.jpg"  width="650" height="210">
 
 <br>
 
@@ -10,15 +10,13 @@
 
 Middleware for secure IoT provisioning, access and control.
 
-powered by: [Fiware](https://www.fiware.org/)
-
 <br>
 
 ## Requirements
 
 - Install <b>Docker</b>: https://docs.docker.com/engine/installation/ and <b>docker-compose</b>: https://docs.docker.com/compose/install/.
 
-- Download the template images to prevent first-time delays deploying containers using the web-interface (Recommended)
+- Download the template images to prevent first-time delays deploying containers using the web-interface
 
 ```
 sudo docker pull mongo
@@ -37,7 +35,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ss
 
 ## Installing
 
-> Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed. 
+> Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
 
 ```
 git clone https://github.com/m4n3dw0lf/helix-sandbox
@@ -63,6 +61,175 @@ sudo docker-compose up -d
 
 <br>
 
-## TO-DO
+## DEMO Walkthrough
 
-- On Setup, fetch the LWM2M IPSO Registry https://github.com/IPSO-Alliance/pub/blob/master/reg/README.md then populate the Attribute model with all the registries in the database, also remember to remove the attribute template/view, leave only the assign form and models.
+<br>
+
+#### Creating an Attribute
+
+- On the main interface, select **Attributes**
+
+![](img/walkthrough/1.png)
+
+- Fill the attribute formulary, to follow the spec from IPSO, see:
+  - https://github.com/IPSO-Alliance/pub
+
+![](img/walkthrough/2.png)
+
+- Attribute created
+
+![](img/walkthrough/3.png)
+
+<br>
+
+#### Creating a Service
+
+- On the main interface, select **Services**
+
+![](img/walkthrough/4.png)
+
+- Fill the service formulary, to follow the spec from IPSO, see:
+  - https://github.com/IPSO-Alliance/pub
+
+![](img/walkthrough/5.png)
+
+- Service created
+
+![](img/walkthrough/6.png)
+
+<br>
+
+#### Creating a Device
+
+- On the main interface, select **Devices**
+
+![](img/walkthrough/7.png)
+
+- Fill the device formulary
+
+![](img/walkthrough/8.png)
+
+- Device created
+
+![](img/walkthrough/9.png)
+
+<br>
+
+#### Creating an Agent
+
+- On the main interface, select **Agents**
+
+![](img/walkthrough/10.png)
+
+- Fill the agent formulary
+
+![](img/walkthrough/11.png)
+
+- Agent registered
+
+![](img/walkthrough/12.png)
+
+- Create the Agent container
+
+![](img/walkthrough/create.png)
+
+- Start the Agent container
+
+![](img/walkthrough/start.png)
+
+- Wait for a few moments and check the Agent status
+
+![](img/walkthrough/stop.png)
+
+#### Creating a Broker
+
+- On the main interface, select **Brokers**
+
+![](img/walkthrough/13.png)
+
+- Fill the broker formulary
+
+![](img/walkthrough/14.png)
+
+- Broker registered
+
+![](img/walkthrough/15.png)
+
+- Create the Broker container
+
+![](img/walkthrough/create.png)
+
+- Start the Broker container
+
+![](img/walkthrough/start.png)
+
+- Wait for a few moments and check the Broker status
+
+![](img/walkthrough/stop.png)
+
+<br>
+
+#### Assign an Attribute to a Service
+
+- On the main interface, select **Services** then on the service created previously, select **Assign** then select the On/Off attribute to the Light Control Service.
+
+![](img/walkthrough/16.png)
+
+<br>
+
+#### Assign a Service to a Device
+
+- On the main interface, select **Devices** then on the device created previously, select **Assign** then select the Light Control Service.
+
+![](img/walkthrough/17.png)
+
+<br>
+
+#### Assign an Agent to a Broker
+
+- On the main interface, select **Brokers** then on the broker created previously, select **Assign** then select the Agent.
+
+![](img/walkthrough/18.png)
+
+<br>
+
+#### Assign a Device to an Agent
+
+- On the main interface, select **Agents** then on the agent created previously, select **Assign** then select the Device.
+
+![](img/walkthrough/19.png)
+
+<br>
+
+#### Connecting to the Agent using the device
+
+Walkthrough client found here: https://github.com/telefonicaid/lwm2m-node-lib
+
+Run the following commands in the client:
+
+```
+create /3311/0                                  # Notice: Object ID
+connect <HELIX_IP> 5683 rasp1 /light_control      # Notice: Device and Service names
+set /3311/0 5850 On                             # Notice: Resource ID
+```
+
+![](img/walkthrough/20.png)
+
+#### Query the device status on the Broker
+
+Run the following curl:
+
+```
+curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
+--header "fiware-service:light_control" \
+--header "fiware-servicepath:/light_control" \
+--header "Content-Type:application/json" \
+--header "Accept:application/json" \
+-d '{
+      "entities": [{
+        "id" : "Device:rasp1"
+      }]
+    }'
+```
+
+![](img/walkthrough/21.png)

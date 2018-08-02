@@ -179,7 +179,10 @@ class Agent(db.Model):
         if self.created == True:
             client.containers.get(self.name).exec_run("sed -i '62,78s/{}/{}/' config-secure.js".format(self.broker_ip,broker_ip))
             # Need to finish: Replace if not using SSL on Orion Broker and vice-versa
-            #client.containers.get(self.name).exec_run("sed -i '64s/{}/{}/' config-secure.js".format(self.broker_context,broker_context))
+            if not self.encryption:
+              client.containers.get(self.name).exec_run('if [[ $(sed -n \'64,64p\' config-secure.js | grep https) ]]; then sed -i \'64s/https/http/\' config-secure.js; fi;')
+            else:
+              client.containers.get(self.name).exec_run('if [[ $(sed -n \'64,64p\' config-secure.js | grep -v https) ]]; then sed -i \'64s/http/https/\' config-secure.js; fi;')
             client.containers.get(self.name).restart()
             self.broker_ip = broker_ip
             self.broker_name = broker_name
@@ -263,12 +266,12 @@ class Agent(db.Model):
           "fiware-servicepath":"/{}".format("_".join(resource)),
           "Content-Type":"application/json"
         }
+        if self.encryption:
+          context = "https"
+        else:
+          context = "http"
         for x in client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"].keys():
             gateway = client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"][x]["Gateway"]
-            if self.encryption:
-              context = "https"
-            else:
-              context = "http"
             service_registration = requests.post("{}://{}:4041/iot/services".format(context,gateway),
                        headers=headers,
                        json=message,
