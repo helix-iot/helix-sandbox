@@ -51,9 +51,6 @@
                             <a href="{{ url_for('admin.create_broker', id=broker.id, category="broker") }}">
                               <i class="fa fa-wrench"></i> Create
                             </a><br>
-                            <a href="{{ url_for('admin.edit_broker', id=broker.id) }}">
-                              <i class="fa fa-edit"></i> Edit
-                            </a><br>
                             <a href="{{ url_for('admin.delete_broker', id=broker.id) }}">
                               <i class="fa fa-trash"></i> Delete
                             </a>
@@ -66,9 +63,6 @@
                                 <i class="fa fa-stop-circle"></i> Stop
                               </a><br>
                             {% endif %}
-                            <a href="{{ url_for('admin.edit_broker', id=broker.id) }}">
-                              <i class="fa fa-edit"></i> Edit
-                            </a><br>
                             <a href="{{ url_for('admin.delete_broker', id=broker.id) }}">
                               <i class="fa fa-trash"></i> Delete
                             </a><br>
@@ -87,9 +81,6 @@
                               <i class="fa fa-play"></i> Start
                             </a><br>
                             {% endif %}
-                            <a href="{{ url_for('admin.edit_broker', id=broker.id) }}">
-                              <i class="fa fa-edit"></i> Edit
-                            </a><br>
                             <a href="{{ url_for('admin.delete_broker', id=broker.id) }}">
                               <i class="fa fa-trash"></i> Delete
                             </a><br>

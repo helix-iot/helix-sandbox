@@ -21,6 +21,7 @@ Middleware for secure IoT provisioning, access and control.
 ```
 sudo docker pull mongo
 sudo docker pull fiware/orion
+sudo docker pull fiware/cygnus-ngsi
 sudo docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 ```
 
@@ -39,7 +40,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ss
 
 ```
 git clone https://github.com/m4n3dw0lf/helix-sandbox
-cd compose
+cd helix-sandbox/compose
 echo "change_to_your_encryption_key" > secrets/aes_key.txt
 sudo docker-compose up -d
 ```
@@ -51,7 +52,7 @@ cd helix-sandbox
 git pull
 cd compose
 sudo docker-compose down
-rm ../helix/app/db/helix.sqlite
+rm -rf ../helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
 
@@ -215,7 +216,7 @@ set /3311/0 5850 On                             # Notice: Resource ID
 
 ![](img/walkthrough/20.png)
 
-#### Query the device status on the Broker
+#### Query the device status on the FIWARE Orion Context Broker
 
 Run the following curl:
 
@@ -233,3 +234,18 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 ```
 
 ![](img/walkthrough/21.png)
+
+#### Read the historical context thanks to FIWARE Cygnus capability 
+
+```
+docker exec -it broker1_mongodb mongo
+> show dbs
+admin                0.000GB
+local                0.000GB
+orion                0.000GB
+orion-light_control  0.000GB
+sth_light_control    0.000GB
+```
+
+The `sth_light_control` will hold collections with the historical data record got from the IoT Agent.
+

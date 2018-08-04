@@ -1,5 +1,7 @@
 from flask import Blueprint
 
+__author__ = "m4n3dw0lf"
+
 admin = Blueprint('admin', __name__)
 
 from . import views

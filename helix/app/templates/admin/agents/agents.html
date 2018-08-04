@@ -51,9 +51,6 @@
                             <a href="{{ url_for('admin.create_agent', id=agent.id, category="agent") }}">
                               <i class="fa fa-wrench"></i> Create
                             </a><br>
-                            <a href="{{ url_for('admin.edit_agent', id=agent.id) }}">
-                              <i class="fa fa-edit"></i> Edit
-                            </a><br>
                             <a href="{{ url_for('admin.delete_agent', id=agent.id) }}">
                               <i class="fa fa-trash"></i> Delete
                             </a><br>
@@ -63,9 +60,6 @@
                           <td>
                             <a href="{{ url_for('admin.stop_agent', id=agent.id, category="agent") }}">
                               <i class="fa fa-stop-circle"></i> Stop
-                            </a><br>
-                            <a href="{{ url_for('admin.edit_agent', id=agent.id) }}">
-                              <i class="fa fa-edit"></i> Edit
                             </a><br>
                             <a href="{{ url_for('admin.delete_agent', id=agent.id) }}">
                               <i class="fa fa-trash"></i> Delete
@@ -82,9 +76,6 @@
                           <td>
                             <a href="{{ url_for('admin.start_agent', id=agent.id, category="agent") }}">
                               <i class="fa fa-play"></i> Start
-                            </a><br>
-                            <a href="{{ url_for('admin.edit_agent', id=agent.id) }}">
-                              <i class="fa fa-edit"></i> Edit
                             </a><br>
                             <a href="{{ url_for('admin.delete_agent', id=agent.id) }}">
                               <i class="fa fa-trash"></i> Delete

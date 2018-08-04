@@ -7,7 +7,7 @@ from forms import LoginForm, RegistrationForm, AdminSetupForm
 from .. import db
 from ..models import User
 
-
+__author__ = "m4n3dw0lf"
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():

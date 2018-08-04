@@ -10,6 +10,8 @@ from simple_aes_cipher import AESCipher, generate_secret_key
 from os import environ,urandom
 from getpass import getpass
 
+__author__ = "m4n3dw0lf"
+
 try:
   AES_KEY = open(environ['AES_KEY']).readline().replace("\n","")
 except:
@@ -134,6 +136,7 @@ class Agent(db.Model):
     status = db.Column(db.Boolean, default=False)
     created = db.Column(db.Boolean, default=False)
     broker_ip = db.Column(db.String(50), default="localhost")
+    broker_port = db.Column(db.String(8), default="1026")
     broker_name = db.Column(db.String(50))
     broker_context = db.Column(db.String(5), default="http")
     config = db.Column(db.Text)
@@ -175,17 +178,20 @@ class Agent(db.Model):
             self.created = False
         return
 
-    def set_broker(self,broker_ip,broker_name,broker_context):
+    def set_broker(self,broker_ip,broker_name,broker_context,broker_port):
         if self.created == True:
             client.containers.get(self.name).exec_run("sed -i '62,78s/{}/{}/' config-secure.js".format(self.broker_ip,broker_ip))
             # Need to finish: Replace if not using SSL on Orion Broker and vice-versa
             if not self.encryption:
+              self.broker_context = "http"
               client.containers.get(self.name).exec_run('if [[ $(sed -n \'64,64p\' config-secure.js | grep https) ]]; then sed -i \'64s/https/http/\' config-secure.js; fi;')
-            else:
+	    else:
+              self.broker_context = "https"
               client.containers.get(self.name).exec_run('if [[ $(sed -n \'64,64p\' config-secure.js | grep -v https) ]]; then sed -i \'64s/http/https/\' config-secure.js; fi;')
             client.containers.get(self.name).restart()
             self.broker_ip = broker_ip
             self.broker_name = broker_name
+	    self.broker_port = broker_port
         return
 
     def destroy(self):
@@ -284,6 +290,29 @@ class Agent(db.Model):
                        verify=False
                     )
             print("\n\n"+device_registration.text+"\n\n")
+            subscription = {
+              "description": "Notify Cygnus of all {} context changes".format(self.name),
+              "subject": {
+               "entities": [
+                 {
+                   "idPattern": ".*"
+                 }
+               ]
+              },
+              "notification": {
+                "http": {
+                  "url": "http://{}:5050/notify".format(gateway)
+                },
+              "attrsFormat": "legacy"
+              },
+                "throttling": 5
+            }
+            cygnus_registration = requests.post('{}://{}:{}/v2/subscriptions'.format(self.broker_context,gateway,self.broker_port),
+                      headers=headers,
+                      json=subscription,
+                      verify=False
+                    )
+            print("\n\n"+cygnus_registration.text+"\n\n")
         self.devices.append(device)
 
     def revoke_device(self,endp):
@@ -324,6 +353,17 @@ class Broker(db.Model):
 		command=" --nojournal",
 	     	name="{}_mongodb".format(self.name),
 	     )
+	     client.containers.create("fiware/cygnus-ngsi",
+	        name="{}_cygnus".format(self.name),
+                environment=[
+                "CYGNUS_MONGO_HOSTS={}_mongodb:27017".format(self.name),
+                "CYGNUS_LOG_LEVEL=DEBUG",
+                "CYGNUS_SERVICE_PORT=5050",
+                "CYGNUS_API_PORT=5080"
+                ],
+                ports={"5050/tcp":"5050","5080/tcp":"5080"},
+                links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name))]
+	     )
              if self.tls:
                 cmd = " -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name)
              else:
@@ -332,7 +372,9 @@ class Broker(db.Model):
 		command=cmd,
                 name=self.name,
                 ports={"1026/tcp":self.port},
-                links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name))],
+                links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name)),
+                       ("{}_cygnus".format(self.name),"{}_cygnus".format(self.name))
+                      ],
                 volumes={
                          '/opt/secrets/ssl_crt': {
                          'bind':'/etc/orion-ssl/cert.crt',
@@ -353,30 +395,27 @@ class Broker(db.Model):
         try:
           client.containers.get(self.name).stop()
 	  client.containers.get("{}_mongodb".format(self.name)).stop()
+	  client.containers.get("{}_cygnus".format(self.name)).stop()
         except:
           pass
-        #try:
-	client.containers.get("{}_mongodb".format(self.name)).remove()
         client.containers.get(self.name).remove()
+	client.containers.get("{}_mongodb".format(self.name)).remove()
+	client.containers.get("{}_cygnus".format(self.name)).remove()
         self.status = False
         self.created = False
-        #except:
-        #    self.status = False
-        #    self.created = False
         return
 
     def start(self):
-        #try:
 	client.containers.get("{}_mongodb".format(self.name)).start()
+	client.containers.get("{}_cygnus".format(self.name)).start()
         client.containers.get(self.name).start()
-        #except: 
-        #    pass
         return
 
     def stop(self):
         try:
             client.containers.get(self.name).stop()
 	    client.containers.get("{}_mongodb".format(self.name)).stop()
+	    client.containers.get("{}_cygnus".format(self.name)).stop()
         except:
             pass
         return

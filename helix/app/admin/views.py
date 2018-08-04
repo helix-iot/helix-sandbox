@@ -7,6 +7,8 @@ from forms import AgentForm, AttributeForm, DeviceForm, ServiceForm, UserAssignF
 from .. import db
 from ..models import Attribute, Device, Service, Agent, Broker, User
 
+__author__ = "m4n3dw0lf"
+
 def check_admin():
     if not current_user.is_admin:
         abort(403) 
@@ -45,35 +47,6 @@ def add_attribute():
                            title="Add Attribute")
 
 
-@admin.route('/attributes/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_attribute(id):
-    check_admin()
-    add_enpoint = False
-    attribute = Attribute.query.get_or_404(id)
-    form = AttributeForm(obj=attribute)
-    if form.validate_on_submit():
-        attribute.name = form.name.data
-        attribute.type = form.type.data
-        attribute.mapping = form.mapping.data
-        attribute.description = form.description.data
-        attribute.operation = form.operation.data
-        attribute.mandatory = form.mandatory.data
-        db.session.commit()
-        flash('You have successfully edited the attribute.')
-
-        # redirect to the attributes page
-        return redirect(url_for('admin.list_attributes'))
-
-    form.description.data = attribute.description
-    form.name.data = attribute.name
-    form.operation.data = attribute.operation
-    form.mapping.data = attribute.mapping
-    form.type.data = attribute.type
-    form.mandatory.data = attribute.mandatory
-    return render_template('admin/attributes/attribute.html', action="Edit",
-                           add_attribute=add_attribute, form=form,
-                           attribute=attribute, title="Edit Attribute")
 
 @admin.route('/attributes/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -121,29 +94,6 @@ def add_device():
                            title="Add Device")
 
 
-@admin.route('/devices/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_device(id):
-    check_admin()
-    add_enpoint = False
-    device = Device.query.get_or_404(id)
-    form = DeviceForm(obj=device)
-    if form.validate_on_submit():
-        device.name = form.name.data
-        device.description = form.description.data
-        device.ip = form.ip.data
-        db.session.commit()
-        flash('You have successfully edited the device.')
-
-        # redirect to the devices page
-        return redirect(url_for('admin.list_devices'))
-
-    form.description.data = device.description
-    form.name.data = device.name
-    form.ip.data = device.ip
-    return render_template('admin/devices/device.html', action="Edit",
-                           add_device=add_device, form=form,
-                           device=device, title="Edit Device")
 
 @admin.route('/devices/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -224,30 +174,6 @@ def add_service():
     return render_template('admin/services/service.html', action="Add",
                             add_service=add_service, form=form,
                             title="Add Service")
-
-@admin.route('/services/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_service(id):
-    check_admin()
-    add_enpoint = False
-    service = Service.query.get_or_404(id)
-    form = ServiceForm(obj=service)
-    if form.validate_on_submit():
-        service.name = form.name.data
-        service.description = form.description.data
-        service.mapping = form.mapping.data
-        db.session.commit()
-        flash('You have successfully edited the service.')
-
-        # redirect to the devices page
-        return redirect(url_for('admin.list_services'))
-
-    form.description.data = service.description
-    form.mapping.data = service.mapping
-    form.name.data = service.name
-    return render_template('admin/services/service.html', action="Edit",
-                           add_service=add_service, form=form,
-                           service=service, title="Edit Service")
 
 @admin.route('/services/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -372,32 +298,6 @@ def stop_agent(id):
     db.session.commit()
     flash('Stop request for container {} submitted successfully.'.format(agent.name))
     return redirect(url_for('admin.list_agents'))
-
-@admin.route('/agents/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_agent(id):
-    check_admin()
-    add_enpoint = False
-    agent = Agent.query.get_or_404(id)
-    form = AgentForm(obj=agent)
-    if form.validate_on_submit():
-        agent.name = form.name.data
-        agent.type = form.type.data
-        agent.port = form.port.data
-        agent.encryption = form.encryption.data
-        agent.description = form.description.data
-        db.session.commit()
-        flash('You have successfully edited the agent.')
-        # redirect to the agents page
-        return redirect(url_for('admin.list_agents'))
-    form.description.data = agent.description
-    form.name.data = agent.name
-    form.port.data = agent.port
-    form.encryption.data = agent.encryption
-    form.type.data = agent.type
-    return render_template('admin/agents/agent.html', action="Edit",
-                           add_agent=add_agent, form=form,
-                           agent=agent, title="Edit Agent")
 
 @admin.route('/agents/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -531,32 +431,6 @@ def add_broker():
                            title="Add Broker")
 
 
-@admin.route('/brokers/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_broker(id):
-    check_admin()
-    add_enpoint = False
-    broker = Broker.query.get_or_404(id)
-    form = BrokerForm(obj=broker)
-    if form.validate_on_submit():
-        broker.name = form.name.data
-        broker.ip = form.ip.data
-        broker.port = form.port.data
-        broker.tls = form.tls.data
-        broker.description = form.description.data
-        db.session.commit()
-        flash('You have successfully edited the broker.')
-        # redirect to the brokers page
-        return redirect(url_for('admin.list_brokers'))
-    form.name.data = broker.name
-    form.ip.data = broker.ip
-    form.port.data = broker.port
-    form.tls.data = broker.tls
-    form.description.data = broker.description
-    return render_template('admin/brokers/broker.html', action="Edit",
-                           add_broker=add_broker, form=form,
-                           broker=broker, title="Edit Broker")
-
 @admin.route('/brokers/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_broker(id):
@@ -586,7 +460,7 @@ def assign_broker(id):
         context = "http"
         if broker.tls:
           context = "https"
-	agent.set_broker(broker.ip,broker.name,context)
+	agent.set_broker(broker.ip,broker.name,context,broker.port)
         broker.grant_agent(form.agent.data)
         db.session.add(broker)
         db.session.commit()

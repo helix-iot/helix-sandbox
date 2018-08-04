@@ -39,11 +39,8 @@
 					</td>
                   {% endif %}
                   <td>
-                    <a href="{{ url_for('admin.edit_service', id=service.id) }}">
-                      Edit <i class="fa fa-edit"></i>
-                    </a><br>
                     <a href="{{ url_for('admin.delete_service', id=service.id) }}">
-                      Delete <i class="fa fa-trash"></i>
+                        <i class="fa fa-trash"></i> Delete </i>
                     </a><br>
                     <a href="{{ url_for('admin.assign_service', id=service.id) }}">
                       Assign <i class="fa fa-check"></i>

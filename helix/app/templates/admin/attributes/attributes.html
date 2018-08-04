@@ -29,9 +29,6 @@
                   <td> {{ attribute.type }} </td>
                   <td> {{ attribute.mapping }} </td>
                   <td>
-                    <a href="{{ url_for('admin.edit_attribute', id=attribute.id) }}">
-                      <i class="fa fa-edit"></i> Edit 
-                    </a><br>
                     <a href="{{ url_for('admin.delete_attribute', id=attribute.id) }}">
                       <i class="fa fa-trash"></i> Delete 
                     </a>

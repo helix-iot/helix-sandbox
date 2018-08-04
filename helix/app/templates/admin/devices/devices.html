@@ -35,12 +35,6 @@
                     {% endif %}
                   </td>
                   <td>
-                    <a href="#">
-                      <i class="fa fa-download"></i> Instructions
-                    </a><br>
-                    <a href="{{ url_for('admin.edit_device', id=device.id) }}">
-                      <i class="fa fa-edit"></i> Edit
-                    </a><br>
                     <a href="{{ url_for('admin.delete_device', id=device.id) }}">
                       <i class="fa fa-trash"></i> Delete
                     </a><br>

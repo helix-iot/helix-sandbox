@@ -5,6 +5,8 @@ from wtforms.validators import DataRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from ..models import Agent, Device, Service, Attribute
 
+__author__ = "m4n3dw0lf"
+
 class BrokerForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     ip = StringField('IP Address')
