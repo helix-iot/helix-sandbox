@@ -273,12 +273,16 @@ def refresh_agents():
 def create_agent(id):
     check_admin()
     agent = Agent.query.get_or_404(id)
-    agent.create()
-    db.session.commit()
+    try:
+      agent.create()
+    except Exception:
+      flash('Sandbox Limit of Agents has been reached.')
+      return redirect(url_for('admin.list_agents'))
     if agent.type == "lwm2m" and agent.encryption:
       flash('Create request for container {} submitted successfully.'.format(agent.name))
     else:
       flash('Container type or protocol not supported yet.')
+    db.session.commit()
     return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/start/<int:id>',methods=['GET'])
@@ -378,7 +382,11 @@ def refresh_brokers():
 def create_broker(id):
     check_admin()
     broker = Broker.query.get_or_404(id)
-    broker.create()
+    try:
+      broker.create()
+    except Exception:
+      flash('Sandbox Limit of Brokers has been reached.')
+      return redirect(url_for('admin.list_brokers'))
     db.session.commit()
     flash('Create request for container {} submitted successfully.'.format(broker.name))
     return redirect(url_for('admin.list_brokers'))

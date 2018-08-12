@@ -10,7 +10,7 @@
         <br/>
         {{ utils.flashed_messages() }}
         <br/>
-        <h1 style="text-align:center;"><i class="fa fa-database"></i> Brokers</h1>
+        <h1 style="text-align:center;"><i class="fa fa-database"></i> FIWARE Orion</h1>
         {% if brokers %}
           <hr class="intro-divider">
           <div class="center">
@@ -103,10 +103,10 @@
           <div style="text-align: center">
           <h3> No brokers have been added. </h3>
           <hr class="intro-divider">
-          {% endif %}
           <a href="{{ url_for('admin.add_broker') }}" class="btn btn-default btn-lg">
             <i class="fa fa-plus"></i> Add Broker
           </a>
+          {% endif %}
         </div>
       </div>
     </div>

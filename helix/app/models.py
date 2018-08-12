@@ -156,6 +156,8 @@ class Agent(db.Model):
 
     def create(self):
         try:
+            if self.id != 1:                                
+                raise Exception("Sandbox Limit Reached")
             if self.type == "lwm2m":
                 client.containers.create("m4n3dw0lf/dtls-lightweightm2m-iotagent", 
                    name=self.name, 
@@ -349,8 +351,11 @@ class Broker(db.Model):
 
     def create(self):
         try:
+	     if self.id != 1:
+               raise Exception("Sandbox Limit Reached")
              client.containers.create("mongo",
 		command=" --nojournal",
+                ports={"27017/tcp":"27017"},
 	     	name="{}_mongodb".format(self.name),
 	     )
 	     client.containers.create("fiware/cygnus-ngsi",

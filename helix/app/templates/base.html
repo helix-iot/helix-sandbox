@@ -27,8 +27,8 @@
                 {% if current_user.is_authenticated %}
                   {% if current_user.is_admin %}
                   <li><a class="topnav" href="{{ url_for('home.admin_dashboard') }}"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
-                  <li><a class="topnav" href="{{ url_for('admin.list_brokers') }}"><i class="fa fa-database"></i> Brokers</a></li>
-                    <li><a class="topnav" href="{{ url_for('admin.list_agents') }}"><i class="fa fa-user-secret"></i> Agents</a></li>
+                  <li><a class="topnav" href="{{ url_for('admin.list_brokers') }}"><i class="fa fa-database"></i> Broker</a></li>
+                    <li><a class="topnav" href="{{ url_for('admin.list_agents') }}"><i class="fa fa-user-secret"></i> Agent</a></li>
                     <li><a class="topnav" href="{{ url_for('admin.list_devices') }}"><i class="fa fa-microchip"></i> Devices</a></li>
                     <li><a class="topnav" href="{{ url_for('admin.list_services') }}"><i class="fa fa-sitemap"></i> Services</a></li>
                     <li><a class="topnav" href="{{ url_for('admin.list_attributes') }}"><i class="fa fa-clipboard-list"></i> Attributes</a></li>
