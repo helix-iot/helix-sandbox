@@ -2,7 +2,7 @@
 
 <br>
 
-<img src="helix/app/static/img/helix-banner.jpg" width=600px>
+<img src="img/helix-banner.jpg">
 
 <br>
 
