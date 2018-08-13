@@ -1,10 +1,4 @@
-# Helix
-
-<br>
-
-<img src="helix/app/static/img/helix-banner.jpg" width=600px>
-
-<br>
+# Helix sandbox 
 
 ## About
 
