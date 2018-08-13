@@ -338,5 +338,14 @@ The `sth_pressure_control` will hold collections with the historical data record
 
 You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
 
+# Freeboard Dashboard
+
 You can also create a dashboard to view the data in real time using https://freeboad.io
+
+<br>
+
+<img src="helix/app/static/img/freeboard_panel.png" width=600px>
+
+<br>
+
 
