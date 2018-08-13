@@ -316,6 +316,18 @@ curl -iX POST \
 "updateAction": "UPDATE"
 }'
 ```
+
+## Support material
+
+#### FIWARE Orion Context Broker
+https://fiware-orion.readthedocs.io/en/master/index.html
+
+#### FIWARE Cygnus
+https://fiware-cygnus.readthedocs.io/en/latest/
+
+#### IoT Agent CoAP with DTLS - Secure FIWARE
+https://github.com/m4n3dw0lf/SecureFiware
+
 ## Viewing historical data in MongoDB 
 
 ```
