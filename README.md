@@ -16,6 +16,7 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 
 ## Requirements
 
+- We suggest using Ubuntu Server 16.04 LTS
 - Install <b>Docker</b>: https://docs.docker.com/engine/installation/ and <b>docker-compose</b>: https://docs.docker.com/compose/install/.
 
 - Download the template images to prevent first-time delays deploying containers using the web-interface
