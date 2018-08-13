@@ -351,4 +351,4 @@ You can also create a dashboard to view the data in real time using https://free
 
 <br>
 
-## © Helix 2018, All rights reserved.
+#### © Helix 2018, All rights reserved.
