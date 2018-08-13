@@ -2,7 +2,9 @@
 
 <br>
 
-<center><img src="helix/app/static/img/helix-banner.jpg" width=600px></center>
+<p>
+<img src="helix/app/static/img/helix-banner.jpg" width=600px>
+</p>
 
 <br>
 
