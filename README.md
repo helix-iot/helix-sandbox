@@ -234,7 +234,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-#### FIWARE Cygnus capability
+## FIWARE Cygnus capability
 
 Create a pressure sensor ip compatible on Orion Context Broker
 
@@ -332,7 +332,7 @@ The `sth_pressure_control` will hold collections with the historical data record
 
 You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
 
-# Freeboard Dashboard
+## Freeboard Dashboard
 
 You can also create a dashboard to view the data in real time using https://freeboad.io
 
