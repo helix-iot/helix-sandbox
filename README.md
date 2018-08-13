@@ -236,7 +236,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ## FIWARE Cygnus - historical data
 
-####Creating a pressure sensor in the Orion Context Broker
+#### Creating a pressure sensor in the Orion Context Broker
 
 ```
 curl -X POST \
@@ -263,7 +263,7 @@ http://<HELIX_IP>:1026/v1/updateContext \
 }
 '
 ```
-####Creating a subscription in Orion Contex Broker
+#### Creating a subscription in Orion Contex Broker
 
 ```
 curl -iX POST \
@@ -290,7 +290,7 @@ curl -iX POST \
 }'
 ```
 
-####Updating pressure sensor data
+#### Updating pressure sensor data
 
 ```
 curl -iX POST \
@@ -316,7 +316,7 @@ curl -iX POST \
 "updateAction": "UPDATE"
 }'
 ```
-##Viewing historical data in MongoDB 
+## Viewing historical data in MongoDB 
 
 ```
 docker exec -it broker1_mongodb mongo
@@ -331,11 +331,11 @@ The `sth_pressure_control` will hold collections with the historical data record
 
 You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
 
-##Freeboard Dashboard
+## Freeboard Dashboard
 
 You can also create a dashboard to view the data in real time using https://freeboad.io
 
-####Data Source
+#### Data Source
 
 <br>
 
@@ -343,7 +343,7 @@ You can also create a dashboard to view the data in real time using https://free
 
 <br>
 
-####Dashboard
+#### Dashboard
 
 <br>
 
@@ -351,4 +351,4 @@ You can also create a dashboard to view the data in real time using https://free
 
 <br>
 
-###© Helix 2018, All rights reserved.
+### © Helix 2018, All rights reserved.
