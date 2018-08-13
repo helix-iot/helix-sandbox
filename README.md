@@ -242,12 +242,12 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 #### FIWARE Cygnus capability
 
-Create an IP device on Orion Context Broker
+Create a pressure sensor ip compatible on Orion Context Broker
 
 ```
 curl -X POST \
--H "fiware-service:temp_control" \
--H "fiware-servicepath:/temp_control" \
+-H "fiware-service:pressure_control" \
+-H "fiware-servicepath:/pressure_control" \
 -H "Content-Type:application/json" \
 http://<HELIX_IP>:1026/v1/updateContext \
 -d '{
@@ -255,10 +255,10 @@ http://<HELIX_IP>:1026/v1/updateContext \
             {
                 "type": "iotdevice",
                 "isPattern": "false",
-                "id": "arduino1",
+                "id": "nodemcu",
                 "attributes": [
                     {
-                        "name": "temperature",
+                        "name": "pressure",
                         "type": "integer",
                         "value": "0"
                     }
@@ -276,8 +276,8 @@ Create a subscription on Orion Context Broker
 curl -iX POST \
   'http://<HELIX_IP>:1026/v2/subscriptions' \
   -H 'Content-Type: application/json' \
-  -H 'fiware-service: temp_control' \
-  -H 'fiware-servicepath: /temp_control' \
+  -H 'fiware-service: pressure_control' \
+  -H 'fiware-servicepath: /pressure_control' \
   -d '{
   "description": "Notify Cygnus of all context changes",
   "subject": {
@@ -303,17 +303,17 @@ Update data
 curl -iX POST \
   'http://<HELIX_IP>:1026/v1/updateContext' \
   -H 'Content-Type: application/json' \
-  -H 'fiware-service: temp_control' \
-  -H 'fiware-servicepath: /temp_control' \
+  -H 'fiware-service: pressure_control' \
+  -H 'fiware-servicepath: /pressure_control' \
   -d '{
 "contextElements": [
   {
     "type": "iotdevice",
     "isPattern": "false",
-    "id": "arduino1",
+    "id": "nodemcu",
     "attributes": [
        {
-         "name": "temperature",
+         "name": "pressure",
          "type": "integer",
          "value": "100"
        }
@@ -331,9 +331,12 @@ docker exec -it broker1_mongodb mongo
 admin                0.000GB
 local                0.000GB
 orion                0.000GB
-orion-temp_control  0.000GB
-sth_temp_control    0.000GB
+orion-pressure_control  0.000GB
+sth_pressure_control    0.000GB
 ```
-The `sth_temp_control` will hold collections with the historical data record got from the device.
+The `sth_pressure_control` will hold collections with the historical data record got from the device.
 
 You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
+
+You can also create a dashboard to view the data in real time using https://freeboad.io
+
