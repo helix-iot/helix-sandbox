@@ -240,7 +240,93 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-#### Read the historical context thanks to FIWARE Cygnus capability
+#### FIWARE Cygnus capability
+
+Create a IP device on Orion Context Broker
+
+```
+curl -X POST \
+-H "fiware-service:temp_control" \
+-H "fiware-servicepath:/temp_control" \
+-H "Content-Type:application/json" \
+http://<HELIX_IP>:1026/v1/updateContext \
+-d '{
+"contextElements": [
+            {
+                "type": "iotdevice",
+                "isPattern": "false",
+                "id": "arduino1",
+                "attributes": [
+                    {
+                        "name": "temperature",
+                        "type": "integer",
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "updateAction": "APPEND"
+}
+'
+
+```
+
+Create a subscription on Orion Context Broker
+
+```
+curl -iX POST \
+  'http://<HELIX_IP>:1026/v2/subscriptions' \
+  -H 'Content-Type: application/json' \
+  -H 'fiware-service: temp_control' \
+  -H 'fiware-servicepath: /temp_control' \
+  -d '{
+  "description": "Notify Cygnus of all context changes",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": ".*"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://172.17.0.1:5050/notify"
+    },
+    "attrsFormat": "legacy"
+  },
+  "throttling": 5
+}'
+
+```
+
+Update data 
+
+```
+curl -iX POST \
+  'http://<HELIX_IP>:1026/v1/updateContext' \
+  -H 'Content-Type: application/json' \
+  -H 'fiware-service: temp_control' \
+  -H 'fiware-servicepath: /temp_control' \
+  -d '{
+"contextElements": [
+  {
+    "type": "iotdevice",
+    "isPattern": "false",
+    "id": "arduino1",
+    "attributes": [
+       {
+         "name": "temperature",
+         "type": "integer",
+         "value": "100"
+       }
+     ]
+   }
+ ],
+"updateAction": "UPDATE"
+}'
+
+```
+Visualise your historical data  
 
 ```
 docker exec -it broker1_mongodb mongo
@@ -248,8 +334,10 @@ docker exec -it broker1_mongodb mongo
 admin                0.000GB
 local                0.000GB
 orion                0.000GB
-orion-light_control  0.000GB
-sth_light_control    0.000GB
-```
+orion-temp_control  0.000GB
+sth_temp_control    0.000GB
 
-The `sth_light_control` will hold collections with the historical data record got from the IoT Agent.
+```
+The `sth_temp_control` will hold collections with the historical data record got from the device.
+
+You can use mongo compass to view temporal data https://www.mongodb.com/products/compass
