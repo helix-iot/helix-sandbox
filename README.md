@@ -268,7 +268,6 @@ http://<HELIX_IP>:1026/v1/updateContext \
         "updateAction": "APPEND"
 }
 '
-
 ```
 
 Create a subscription on Orion Context Broker
@@ -296,7 +295,6 @@ curl -iX POST \
   },
   "throttling": 5
 }'
-
 ```
 
 Update data 
@@ -324,7 +322,6 @@ curl -iX POST \
  ],
 "updateAction": "UPDATE"
 }'
-
 ```
 Visualise your historical data  
 
@@ -336,8 +333,7 @@ local                0.000GB
 orion                0.000GB
 orion-temp_control  0.000GB
 sth_temp_control    0.000GB
-
 ```
 The `sth_temp_control` will hold collections with the historical data record got from the device.
 
-You can use mongo compass to view temporal data https://www.mongodb.com/products/compass
+You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
