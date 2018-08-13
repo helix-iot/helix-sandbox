@@ -2,13 +2,15 @@
 
 <br>
 
-<img src="helix/app/static/img/helix-banner.jpg"  width="650" height="210">
+<img src="helix/app/static/img/helix-banner.jpg" width=600px>
 
 <br>
 
 ## About
 
-Middleware for secure IoT provisioning, access and control.
+Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic Enablers (GE). Its purpose is to simplify the process of installation, configuration and use of the GEs through an easy-to-use graphical interface that enables orchestration of the elements that constitute it. The platform is built on a microservice basis and uses Docker to perform the GE instantiation. Helix Sandbox can be installed on any Cloud platform or virtualization that enables the use of Linux virtual machines. In its internal architecture are present the Orion Context Broker, IoT Agent LWM2M Coap, Cygnus, Helix dashboard and a MongoDB database to provide the temporal storage of the data. It can be used to aid and accelerate the process of constructing PoCs (Proof of Concept) and experimental applications based on FIWARE with the use of few computional resources.
+
+<img src="img/architecture.jpg">
 
 <br>
 
@@ -235,7 +237,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-#### Read the historical context thanks to FIWARE Cygnus capability 
+#### Read the historical context thanks to FIWARE Cygnus capability
 
 ```
 docker exec -it broker1_mongodb mongo
@@ -248,4 +250,3 @@ sth_light_control    0.000GB
 ```
 
 The `sth_light_control` will hold collections with the historical data record got from the IoT Agent.
-
