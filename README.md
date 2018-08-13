@@ -242,7 +242,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 #### FIWARE Cygnus capability
 
-Create a IP device on Orion Context Broker
+Create an IP device on Orion Context Broker
 
 ```
 curl -X POST \
