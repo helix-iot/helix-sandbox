@@ -344,7 +344,7 @@ You can also create a dashboard to view the data in real time using https://free
 
 <br>
 
-<img src="helix/app/static/img/freeboard_panel.png" width=600px>
+<img src="helix/app/static/img/freeboard_panel.jpg" width=600px>
 
 <br>
 
