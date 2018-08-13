@@ -201,7 +201,7 @@ sudo docker-compose up -d
 
 <br>
 
-#### Connecting to the Agent using the device
+## Connecting to the Agent using the device
 
 Walkthrough client found here: https://github.com/telefonicaid/lwm2m-node-lib
 
@@ -215,7 +215,7 @@ set /3311/0 5850 On                             # Notice: Resource ID
 
 ![](img/walkthrough/20.png)
 
-#### Query the device status on the FIWARE Orion Context Broker
+### Query the device status on the FIWARE Orion Context Broker
 
 Run the following curl:
 
@@ -234,7 +234,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-## FIWARE Cygnus capability
+## FIWARE Cygnus
 
 Create a pressure sensor ip compatible on Orion Context Broker
 
@@ -291,7 +291,7 @@ curl -iX POST \
 }'
 ```
 
-Update data 
+updating pressure sensor data
 
 ```
 curl -iX POST \
