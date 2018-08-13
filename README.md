@@ -209,7 +209,7 @@ Run the following commands in the client:
 
 ```
 create /3311/0                                  # Notice: Object ID
-connect <HELIX_IP> 5683 rasp1 /light_control      # Notice: Device and Service names
+connect <HELIX_IP> 5683 rasp1 /light_control    # Notice: Device and Service names
 set /3311/0 5850 On                             # Notice: Resource ID
 ```
 
@@ -234,7 +234,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-## FIWARE Cygnus
+## FIWARE Cygnus - historical data
 
 Creating a pressure sensor in the Orion Context Broker
 
@@ -351,4 +351,4 @@ Dashboard
 
 <br>
 
-
+© Helix 2018, All rights reserved.
