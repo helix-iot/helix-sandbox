@@ -236,7 +236,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ## FIWARE Cygnus
 
-Create a pressure sensor ip compatible on Orion Context Broker
+Creating a pressure sensor in the Orion Context Broker
 
 ```
 curl -X POST \
@@ -263,8 +263,7 @@ http://<HELIX_IP>:1026/v1/updateContext \
 }
 '
 ```
-
-Create a subscription on Orion Context Broker
+Creating a subscription in Orion Contex Broker
 
 ```
 curl -iX POST \
@@ -291,7 +290,7 @@ curl -iX POST \
 }'
 ```
 
-updating pressure sensor data
+Updating pressure sensor data
 
 ```
 curl -iX POST \
@@ -317,7 +316,7 @@ curl -iX POST \
 "updateAction": "UPDATE"
 }'
 ```
-Visualise your historical data  
+Viewing historical data in MongoDB 
 
 ```
 docker exec -it broker1_mongodb mongo
