@@ -213,8 +213,6 @@ connect <HELIX_IP> 5683 rasp1 /light_control    # Notice: Device and Service nam
 set /3311/0 5850 On                             # Notice: Resource ID
 ```
 
-![](img/walkthrough/20.png)
-
 ### Query the device status on the FIWARE Orion Context Broker
 
 Run the following curl:
