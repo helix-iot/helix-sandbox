@@ -55,7 +55,7 @@ rm -rf ../helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
 
-- Access: http://localhost:5000
+- Access: http://<HELIX_IP>:5000
 
 - Setup the **admin** account
 
