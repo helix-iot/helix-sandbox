@@ -234,7 +234,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-## FIWARE Cygnus - historical data example
+## FIWARE Cygnus - Example of historical storage using MongoDB 
 
 #### Creating a pressure sensor in the Orion Context Broker
 
