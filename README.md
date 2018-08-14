@@ -234,7 +234,7 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
 
 ![](img/walkthrough/21.png)
 
-## FIWARE Cygnus - historical data
+## FIWARE Cygnus - historical data example
 
 #### Creating a pressure sensor in the Orion Context Broker
 
@@ -317,17 +317,6 @@ curl -iX POST \
 }'
 ```
 
-## Support material
-
-#### FIWARE Orion Context Broker
-https://fiware-orion.readthedocs.io/en/master/index.html
-
-#### FIWARE Cygnus
-https://fiware-cygnus.readthedocs.io/en/latest/
-
-#### IoT Agent CoAP with DTLS - Secure FIWARE
-https://github.com/m4n3dw0lf/SecureFiware
-
 ## Viewing historical data in MongoDB 
 
 ```
@@ -362,5 +351,16 @@ You can also create a dashboard to view the data in real time using https://free
 <img src="img/freeboard_panel.JPG">
 
 <br>
+
+## Support material
+
+#### FIWARE Orion Context Broker
+https://fiware-orion.readthedocs.io/en/master/index.html
+
+#### FIWARE Cygnus
+https://fiware-cygnus.readthedocs.io/en/latest/
+
+#### IoT Agent CoAP with DTLS - Secure FIWARE
+https://github.com/m4n3dw0lf/SecureFiware
 
 #### © Helix 2018, All rights reserved.
