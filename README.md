@@ -230,7 +230,30 @@ curl -X POST -k https://<HELIX_IP>:1026/v1/queryContext \
     }'
 ```
 
-![](img/walkthrough/21.png)
+```
+{
+ "contextResponse": [
+ {
+	"contextElement": {
+	"type": "Device",
+	"isPattern": "false",
+	"id": "Device:rasp1",
+	"attributes": [
+	{
+		"name": "On/Off",
+		"type": "Boolean",
+		"value": "On"
+	}
+	]
+	},
+	"statusCode": {
+	 "code": "200",
+	 "reasonPhrase": "OK"
+   }
+  }
+ ]
+}
+```
 
 ## FIWARE Cygnus - Example of historical storage using MongoDB 
 
