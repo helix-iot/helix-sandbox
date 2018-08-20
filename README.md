@@ -51,7 +51,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ss
 ## Installing
 <br>
 
-Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
+- Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
 ```
 echo "change_to_your_encryption_key" > secrets/aes_key.txt
 ```
