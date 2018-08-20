@@ -49,6 +49,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ss
 <br>
 
 ## Installing
+<br>
 
 Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
 ```
@@ -60,7 +61,7 @@ git clone https://github.com/m4n3dw0lf/helix-sandbox
 cd helix-sandbox/compose
 sudo docker-compose up -d
 ```
-
+<br>
 ## Updating
 
 ```
