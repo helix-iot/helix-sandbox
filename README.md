@@ -10,12 +10,20 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 
 <br>
 
-## Requirements
+## Requirements before Helix sandbox installation
 
-- We suggest using Ubuntu Server 16.04 LTS
-- Install <b>Docker</b>: https://docs.docker.com/engine/installation/ and <b>docker-compose</b>: https://docs.docker.com/compose/install/.
+- You can use any local hypervisor like Virtual Box, VMware and KVM or if you need an global internet access we suggest any Cloud Service Provicer (CSP) like AWS, Azure or Google.
+- You can install any Linux distribution, but Ubuntu Server 16.04 LTS has been validated exhaustively.
+- If you decide to use the CSP you will need to open ports in Firewall (22/TCP, 5000/TCP, 1026/TCP, 27017/TCP, 5683/UDP, and 5684/UDP)
+- You must update and upgrade the server using sudo apt command:
 
-- Download the template images to prevent first-time delays deploying containers using the web-interface
+```
+sudo apt update
+sudo apt upgrade
+```
+- Install <b>Docker</b>: https://docs.docker.com/engine/installation/
+- Install <b>docker-compose</b>: https://docs.docker.com/compose/install/
+- Download the template images to prevent first-time delays deploying containers 
 
 ```
 sudo docker pull mongo
@@ -23,9 +31,7 @@ sudo docker pull fiware/orion
 sudo docker pull fiware/cygnus-ngsi
 sudo docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 ```
-
 - If you want to use TLS/DTLS in the Orion and IoT Agents, you need to create a `/run/secrets` directory inside your host and populate with the certificate and key, you can generate a self-signed key-pair using the following command:
-
 ```
 sudo mkdir -p /opt/secrets
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ssl_key -out /opt/secrets/ssl_crt
@@ -35,12 +41,14 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/secrets/ss
 
 ## Installing
 
-> Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
+Replace the aes_key with your own password and ssl key-pair with your valid key-pair if you don't want to use a self-signed.
+```
+echo "change_to_your_encryption_key" > secrets/aes_key.txt
+```
 
 ```
 git clone https://github.com/m4n3dw0lf/helix-sandbox
 cd helix-sandbox/compose
-echo "change_to_your_encryption_key" > secrets/aes_key.txt
 sudo docker-compose up -d
 ```
 
@@ -54,14 +62,16 @@ sudo docker-compose down
 rm -rf ../helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
+## Access the Helix sandbox web interface
 
+- You can use your preferred web browser
 - Access: http://<HELIX_IP>:5000
 
 - Setup the **admin** account
 
 <br>
 
-## DEMO Walkthrough
+## Creating a Device LWM2M - Graphical Interface Walkthrough
 
 <br>
 
