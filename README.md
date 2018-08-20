@@ -73,13 +73,11 @@ sudo docker-compose down
 rm -rf ../helix/app/db/helix.sqlite
 sudo docker-compose up -d
 ```
-<br>
 ## Access the Helix sandbox web interface
 
 - You can use your preferred web browser
 - Access: http://<HELIX_IP>:5000
-
-- Setup the **admin** account
+- Choose a strong password to the **admin** account
 
 <br>
 
