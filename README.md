@@ -109,7 +109,7 @@ sudo docker-compose up -d
 ![](img/walkthrough/4.png)
 
 - Fill the service formulary, to follow the spec from IPSO, see:
-  - https://github.com/IPSO-Alliance/pub
+  - https://github.com/IPSO-Alliance/pub and http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html
 
 ![](img/walkthrough/5.png)
 
