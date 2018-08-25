@@ -17,8 +17,6 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
     - [Installation](docs/installation.md)
     - [Updating/Reseting](docs/update_reset.md)
 
-<br><br>
-
   - Tutorials and How-to's
     - [Accessing Helix Sandbox Web Interface](docs/accessing.md)
     - [Creating an Attribute](docs/create_attribute.md)
