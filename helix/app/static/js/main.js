@@ -45,10 +45,10 @@ $(function() {
 function observer () {
   if (window.blurred) { return; }
   if( window.location.pathname == "/admin/agents"){
-    window.location = "/admin/agents/status"
+    window.location = "/admin/agents"
   }
   if( window.location.pathname == "/admin/brokers"){
-    window.location = "/admin/brokers/status"
+    window.location = "/admin/brokers"
   }
 }
 

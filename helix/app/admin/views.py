@@ -231,6 +231,9 @@ def revoke_service(id):
 def list_agents():
     check_admin()
     agents = Agent.query.all()
+    for agent in agents:
+      agent.refresh_status()
+    db.session.commit()
     return render_template('admin/agents/agents.html',
                            agents=agents, title="Agents")
 
@@ -259,15 +262,6 @@ def add_agent():
     return render_template('admin/agents/agent.html', action="Add",
                            add_agent=add_agent, form=form,
                            title="Add Agent")
-
-@admin.route('/agents/status', methods=['GET'])
-def refresh_agents():
-    check_admin()
-    agents = Agent.query.all()
-    for agent in agents:
-      agent.refresh_status()
-    db.session.commit()
-    return redirect(url_for('admin.list_agents'))
 
 @admin.route('/agents/create/<int:id>',methods=['GET'])
 def create_agent(id):
@@ -366,16 +360,15 @@ def revoke_agent(id):
 def list_brokers():
     check_admin()
     brokers = Broker.query.all()
+    for broker in brokers:
+      broker.refresh_status()
+    db.session.commit()
     return render_template('admin/brokers/brokers.html',
                            brokers=brokers, title="Brokers")
 
 @admin.route('/brokers/status', methods=['GET'])
 def refresh_brokers():
     check_admin()
-    brokers = Broker.query.all()
-    for broker in brokers:
-      broker.refresh_status()
-    db.session.commit()
     return redirect(url_for('admin.list_brokers'))
 
 @admin.route('/brokers/create/<int:id>',methods=['GET'])
