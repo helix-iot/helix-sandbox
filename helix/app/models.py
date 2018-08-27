@@ -284,7 +284,7 @@ class Agent(db.Model):
         for x in client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"].keys():
             gateway = client.containers.get("helix-sandbox").attrs["NetworkSettings"]["Networks"][x]["Gateway"]
             try:
-              service_registration = requests.post("{}://{}:4041/iot/services".format(context,gateway),
+              service_registration = requests.post("https://{}:4041/iot/services".format(gateway),
                        headers=headers,
                        json=message,
                        verify=False
@@ -294,7 +294,7 @@ class Agent(db.Model):
               raise e
             print("\n\n"+service_registration.text+"\n\n")
             try:
-              device_registration = requests.post('{}://{}:4041/iot/devices'.format(context,gateway),
+              device_registration = requests.post('https://{}:4041/iot/devices'.format(gateway),
                        headers=headers,
                        json=message2,
                        verify=False
