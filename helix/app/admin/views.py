@@ -461,7 +461,11 @@ def assign_broker(id):
         context = "http"
         if broker.tls:
           context = "https"
-	agent.set_broker(broker.ip,broker.name,context,broker.port)
+        try:
+	  agent.set_broker(broker.ip,broker.name,context,broker.port)
+        except Exception as e:
+          flash('Check if the agent {} is online.'.format(agent.name))
+          return redirect(url_for('admin.list_brokers'))
         broker.grant_agent(form.agent.data)
         db.session.add(broker)
         db.session.commit()
