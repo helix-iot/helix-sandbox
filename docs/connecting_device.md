@@ -1,4 +1,4 @@
-## Connecting to the Agent using the device
+## Connecting to the Agent using the Device
 
 Walkthrough client found here: https://github.com/telefonicaid/lwm2m-node-lib
 
