@@ -1,4 +1,4 @@
-## FIWARE Cygnus - Example of historical storage using MongoDB.
+## FIWARE Cygnus - Example of historical storage using MongoDB
 
 #### Creating a pressure sensor in the Orion Context Broker
 
