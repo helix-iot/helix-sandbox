@@ -81,7 +81,7 @@ curl -iX POST \
 }'
 ```
 
-#### Viewing historical data in MongoDB.
+#### Viewing historical data in MongoDB
 
 ```
 docker exec -it <your_broker>_mongodb mongo
