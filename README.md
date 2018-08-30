@@ -18,7 +18,7 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 ## Documentation
 
   - Requirements, Installation and Maintenance
-    - [Requirements before Helix sandbox installation](docs/requirements.md)
+    - [Requirements before Helix Sandbox installation](docs/requirements.md)
     - [Installation](docs/installation.md)
     - [Updating/Reseting](docs/update_reset.md)
 
@@ -56,7 +56,7 @@ https://github.com/m4n3dw0lf/SecureFiware
 #### Postman Collection - Orion Context Broker
 https://goo.gl/dPPHQv
 
-#### Sketch Arduino Uno R3 + ESP8266 + LM35 Send data to Orion Context Broker
+#### Sketch Arduino Uno R3 + ESP8266 + LM35 Send data to Helix Sandbox
 https://goo.gl/nX8iMG
 
 #### © Helix 2018, All rights reserved.
