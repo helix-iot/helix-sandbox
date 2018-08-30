@@ -6,7 +6,7 @@ Run the following commands, also grant the [requirements](requirements.md) have 
 ```
 git clone https://github.com/helix-iot/helix-sandbox
 cd helix-sandbox/compose
-optional feature: echo "change_to_your_encryption_key" > secrets/aes_key.txt
+echo "put_here_your_encryption_key" > secrets/aes_key.txt
 sudo docker-compose up -d
 ```
 
