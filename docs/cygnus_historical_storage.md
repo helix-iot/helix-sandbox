@@ -84,7 +84,7 @@ curl -iX POST \
 #### Viewing historical data in MongoDB.
 
 ```
-docker exec -it broker1_mongodb mongo
+docker exec -it <your_broker>_mongodb mongo
 > show dbs
 admin                0.000GB
 local                0.000GB
