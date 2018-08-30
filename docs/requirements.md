@@ -19,8 +19,8 @@
 sudo apt update
 sudo apt upgrade
 ```
-- Install <b>Docker</b>: https://docs.docker.com/engine/installation/
-- Install <b>docker-compose</b>: https://docs.docker.com/compose/install/
+- Install <b>Docker</b>: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+- Install <b>docker-compose</b>: https://docs.docker.com/compose/install/#install-compose
 - Download the template images to prevent first-time delays deploying containers.
 
 ```
