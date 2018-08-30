@@ -42,7 +42,7 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 
 <br>
 
-## Documentation and additional resources
+## Additional Resources
 
 #### FIWARE Orion Context Broker
 https://fiware-orion.readthedocs.io/en/master/index.html
