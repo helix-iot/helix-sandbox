@@ -1,7 +1,7 @@
 ## Installation
 
 
-Run the following commands, also grant the the [requirements](requirements.md) have been set.
+Run the following commands, also grant the [requirements](requirements.md) have been set.
 
 ```
 git clone https://github.com/helix-iot/helix-sandbox
