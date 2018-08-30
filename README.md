@@ -33,7 +33,7 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
     - [Assigning a Service to a Device](docs/assign_service.md)
     - [Assigning an Agent to a Broker](docs/assig_agent.md)
     - [Assigning a Device to an Agent](docs/assign_device.md)
-    - [Connect a Device to the Agent](docs/connecting_device.md)
+    - [Connecting to the Agent using the Device](docs/connecting_device.md)
     - [FIWARE Cygnus - Example of historical storage using MongoDB](docs/cygnus_historical_storage.md)
     - [Creating a third-party dashboard](docs/creating_dashboard.md)
 
