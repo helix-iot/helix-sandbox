@@ -9,7 +9,7 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 <br>
 <br>
 
-## Helix Sandbox Architecture
+## Helix Sandbox Internal Architecture
 
 <img src="docs/img/helixsandbox.jpg">
 
