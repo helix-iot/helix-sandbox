@@ -1,5 +1,5 @@
 
-## Requirements before Helix sandbox installation
+## Requirements before Helix Sandbox installation
 
 - You can use any local hypervisor like Virtual Box, VMware and KVM or if you need a global internet access we suggest any Cloud Service Provicer (CSP) like AWS, Azure or Google. 
 - Minimum server configuration: 1 vCPU, 1GB RAM and 16GB HDD or SSD.
@@ -10,7 +10,7 @@
 5000/TCP - Web Interface
 1026/TCP - Orion Contex Broker (HTTP or HTTPs)
 27017/TCP - MongoDB "Historical Data Access"
-5683/UDP - CoAP.
+5683/UDP - CoAP
 5684/UDP - CoAP with DTLS
 ```
 - You must update and upgrade the server using sudo apt command:
