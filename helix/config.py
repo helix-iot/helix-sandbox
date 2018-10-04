@@ -6,7 +6,7 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     FLASK_DEBUG = True
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI="sqlite:///db/helix.sqlite"
 

@@ -370,12 +370,12 @@ class Broker(db.Model):
         try:
 	     if self.id != 1:
                raise Exception("Sandbox Limit Reached")
-             client.containers.create("mongo",
+             client.containers.create("mongo:3.4",
 		command=" --nojournal",
                 ports={"27017/tcp":"27017"},
 	     	name="{}_mongodb".format(self.name),
 	     )
-	     client.containers.create("fiware/cygnus-ngsi",
+             client.containers.create("fiware/cygnus-ngsi:1.7.1",
 	        name="{}_cygnus".format(self.name),
                 environment=[
                 "CYGNUS_MONGO_HOSTS={}_mongodb:27017".format(self.name),
@@ -390,7 +390,7 @@ class Broker(db.Model):
                 cmd = " -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name)
              else:
                 cmd = " -dbhost {}_mongodb".format(self.name)
-             client.containers.create("fiware/orion", 
+             client.containers.create("fiware/orion:1.10.0", 
 		command=cmd,
                 name=self.name,
                 ports={"1026/tcp":self.port},
