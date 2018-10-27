@@ -26,7 +26,7 @@ sudo apt upgrade
 ```
 sudo docker pull mongo:3.4
 sudo docker pull fiware/orion:1.10.0
-sudo docker pull fiware/cygnus-ngsi:1.7.1
+sudo docker pull fiware/cygnus-ngsi:1.9.0
 sudo docker pull m4n3dw0lf/dtls-lightweightm2m-iotagent
 ```
 - If you want to use TLS/DTLS in the Orion and IoT Agents, you need to create a `/run/secrets` directory inside your host and populate with the certificate and key, you can generate a self-signed key-pair using the following command:

@@ -375,7 +375,7 @@ class Broker(db.Model):
                 ports={"27017/tcp":"27017"},
 	     	name="{}_mongodb".format(self.name),
 	     )
-             client.containers.create("fiware/cygnus-ngsi:1.7.1",
+             client.containers.create("fiware/cygnus-ngsi:1.9.0",
 	        name="{}_cygnus".format(self.name),
                 environment=[
                 "CYGNUS_MONGO_HOSTS={}_mongodb:27017".format(self.name),
