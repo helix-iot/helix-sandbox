@@ -56,7 +56,10 @@ https://github.com/m4n3dw0lf/SecureFiware
 #### Postman Collection - Orion Context Broker
 https://goo.gl/dPPHQv
 
-#### Sketch Arduino Uno R3 + ESP8266 + LM35 Send data to Helix Sandbox
+#### Sketch Arduino Uno R3 + ESP8266 + LM35 Send data to Helix Sandbox C code
 https://goo.gl/nX8iMG
+
+#### Sketch Arduino Uno R3 + ESP8266 + LM35 electrical schema
+https://goo.gl/TxBwJa
 
 #### © Helix 2018, All rights reserved.
