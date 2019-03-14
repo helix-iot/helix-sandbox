@@ -387,9 +387,9 @@ class Broker(db.Model):
                 links=[("{}_mongodb".format(self.name),"{}_mongodb".format(self.name))]
 	     )
              if self.tls:
-                cmd = " -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name)
+                cmd = " -corsOrigin __ALL -dbhost {}_mongodb -https -key /etc/orion-ssl/cert.key -cert /etc/orion-ssl/cert.crt".format(self.name)
              else:
-                cmd = " -dbhost {}_mongodb".format(self.name)
+                cmd = " -corsOrigin __ALL -dbhost {}_mongodb".format(self.name)
              client.containers.create("fiware/orion:1.10.0", 
 		command=cmd,
                 name=self.name,
