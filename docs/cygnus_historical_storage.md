@@ -94,5 +94,5 @@ sth_pressure_control    0.000GB
 ```
 The `sth_pressure_control` will hold collections with the historical data record got from the device.
 
-You can use MongoDB Compass to view historical data https://www.mongodb.com/products/compass
+You can use MongoDB Compass to view historical data. Try https://www.mongodb.com/products/compass
 
