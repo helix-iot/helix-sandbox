@@ -66,4 +66,4 @@ https://goo.gl/nX8iMG
 #### Temperature Sensor - send data to Helix Sandbox from Arduino - electrical schema
 https://goo.gl/TxBwJa
 
-#### © Helix 2018, All rights reserved.
+#### © Helix 2019, All rights reserved.
