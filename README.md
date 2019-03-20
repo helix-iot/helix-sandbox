@@ -45,6 +45,9 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
 
 ## Additional Resources
 
+#### FIWARE Market Place
+http://marketplace.fiware.org/pages/platforms
+
 #### FIWARE Orion Context Broker
 https://fiware-orion.readthedocs.io/en/master/index.html
 
