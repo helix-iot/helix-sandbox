@@ -40,7 +40,7 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
 
   > If this is the first time you use Helix Sandbox, we recommend that you proceed in the order above.
   
-  > The CORS (Cross-Origin Resource Sharing) support has been disabled in Moon 0.0.2 release. 
+  > The CORS (Cross-Origin Resource Sharing) support has been disabled in Mars 0.0.2 release. 
 <br>
 
 ## Additional Resources
