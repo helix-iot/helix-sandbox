@@ -24,22 +24,22 @@ Helix Sandbox is an open platform that is fully compatible with FIWARE's Generic
 
   - Tutorials and How-to's
     - [Accessing Helix Sandbox Web Interface](docs/accessing.md)
-    - [Creating an Attribute](docs/create_attribute.md)
-    - [Creating a Service](docs/create_service.md)
-    - [Creating a Device](docs/create_device.md)
-    - [Creating an Agent](docs/create_agent.md)
-    - [Creating a Broker](docs/create_broker.md)
-    - [Assigning an Attribute to a Service](docs/assign_attribute.md)
-    - [Assigning a Service to a Device](docs/assign_service.md)
-    - [Assigning an Agent to a Broker](docs/assig_agent.md)
-    - [Assigning a Device to an Agent](docs/assign_device.md)
-    - [Connecting to the Agent using the Device](docs/connecting_device.md)
+    - [Creating an Attribute - CoAP only](docs/create_attribute.md)
+    - [Creating a Service - CoAP only](docs/create_service.md)
+    - [Creating a Device - CoAP only](docs/create_device.md)
+    - [Creating an Agent - CoAP only](docs/create_agent.md)
+    - [Creating a Broker - ip compatible device or CoAP](docs/create_broker.md)
+    - [Assigning an Attribute to a Service - CoAP only](docs/assign_attribute.md)
+    - [Assigning a Service to a Device CoAP only](docs/assign_service.md)
+    - [Assigning an Agent to a Broker - CoAP only](docs/assig_agent.md)
+    - [Assigning a Device to an Agent - CoAP only](docs/assign_device.md)
+    - [Connecting to the Agent using the Device - CoAP only](docs/connecting_device.md)
     - [FIWARE Cygnus - Example of historical storage using MongoDB](docs/cygnus_historical_storage.md)
     - [Creating a third-party dashboard](docs/creating_dashboard.md)
 
 
   > If this is the first time you use Helix Sandbox, we recommend that you proceed in the order above.
-
+  > CORS (Cross-Origin Resource Sharing) was disabled on Moon 0.0.2 release. 
 <br>
 
 ## Additional Resources
