@@ -1,6 +1,6 @@
 ## Creating a third-party dashboard
 
-You can also create a dashboard to view the data in real time using https://freeboad.io
+You can also create a dashboard to view the data in real time using https://freeboard.io
 
 #### Data Source
 
