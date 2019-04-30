@@ -54,6 +54,12 @@ https://fiware-orion.readthedocs.io/en/master/index.html
 #### FIWARE Cygnus
 https://fiware-cygnus.readthedocs.io/en/latest/
 
+#### ETSI NGSI
+https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.01.01_60/gs_CIM009v010101p.pdf
+
+#### Fiware Data Models
+https://fiware-datamodels.readthedocs.io/en/latest/index.html
+
 #### IoT Agent CoAP with DTLS - Secure FIWARE
 https://github.com/m4n3dw0lf/SecureFiware
 
