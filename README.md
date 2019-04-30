@@ -72,4 +72,7 @@ https://goo.gl/nX8iMG
 #### Temperature Sensor - send data to Helix Sandbox from Arduino - electrical schema
 https://goo.gl/TxBwJa
 
+#### Android Python
+https://www.qpython.com/
+
 #### © Helix Platform 2019, All rights reserved.
