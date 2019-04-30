@@ -58,7 +58,7 @@ https://fiware-cygnus.readthedocs.io/en/latest/
 https://github.com/m4n3dw0lf/SecureFiware
 
 #### Postman Collection - Orion Context Broker
-https://goo.gl/dPPHQv
+https://1drv.ms/u/s!An8b07tWUJ1DiOwn9bo5BoloZwNjEA
 
 #### Temperature Sensor - send data to Helix Sandbox from Arduino - code
 https://goo.gl/nX8iMG
