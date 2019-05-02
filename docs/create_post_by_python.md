@@ -1,4 +1,4 @@
-## sending data through the POST method done in Python on Adroind
+## sending light data through the POST method done in Python on Adroind
 
 ````
 import json
