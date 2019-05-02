@@ -8,11 +8,11 @@ head = {"Content-Type": "application/json"}
 droid = androidhelper.Android()
 droid.startSensingTimed(1, 250)
 sensor2 = droid.sensorsGetLight().result
-dados1 = '{ "level" : { "value" : "'
-dados2 = str(sensor2)
-dados3 = '" , "type" : "integer" } }'
-dadost = dados1 + dados2 + dados3
-print (dadost)
+d1 = '{ "level" : { "value" : "'
+d2 = str(sensor2)
+d3 = '" , "type" : "integer" } }'
+dt = d1 + d2 + d3
+print (dt)
 url = 'http://<ip_helix:1026/v2/entities/urn:ngsi-ld:iot:001/attrs'
 response = requests.post(url, data=dadost, headers=head)
 print (response)
