@@ -13,7 +13,7 @@ d2 = str(sensor2)
 d3 = '" , "type" : "integer" } }'
 dt = d1 + d2 + d3
 print (dt)
-url = 'http://<ip_helix:1026/v2/entities/urn:ngsi-ld:iot:001/attrs'
-response = requests.post(url, data=dadost, headers=head)
+url = 'http://<ip_helix>:1026/v2/entities/urn:ngsi-ld:iot:001/attrs'
+response = requests.post(url, data=dt, headers=head)
 print (response)
 droid.stopSensing()
