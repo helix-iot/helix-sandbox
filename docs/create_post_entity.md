@@ -1,4 +1,4 @@
-#### Creating an entity on Helix Sandbox by Android
+## Creating an entity on Helix Sandbox by Android
 ```
 import json
 import requests
