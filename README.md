@@ -20,7 +20,7 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
   - Requirements, Installation and Maintenance
     - [Requirements](docs/requirements.md)
     - [Installation](docs/installation.md)
-    - [Update/Reset](docs/update_reset.md)
+    - [Update or Reset instance](docs/update_reset.md)
 
   - Tutorials and How-to's
     - [Accessing Helix Sandbox Web Interface](docs/accessing.md)
