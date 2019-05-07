@@ -1,6 +1,6 @@
 ### CoAP LWM2M configuration
 
-- [Creating an Attribute - CoAP only](docs/create_attribute.md)
+- [Creating an Attribute - CoAP only](create_attribute.md)
 - [Creating a Service - CoAP only](docs/create_service.md)
 - [Creating a Device - CoAP only](docs/create_device.md)
 - [Creating an Agent - CoAP only](docs/create_agent.md)
