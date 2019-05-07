@@ -8,6 +8,8 @@
 
 ![](img/walkthrough/14.png)
 
+> The check-box TLS is optional
+
 - Broker registered
 
 ![](img/walkthrough/15.png)
