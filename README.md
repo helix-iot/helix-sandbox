@@ -34,6 +34,7 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
     - [Assigning an Agent to a Broker - CoAP only](docs/assig_agent.md)
     - [Assigning a Device to an Agent - CoAP only](docs/assign_device.md)
     - [Connecting to the Agent using the Device - CoAP only](docs/connecting_device.md)
+    - [CoAP/LWM2M configuration](docs/coap_lwm2m.md)
     - [FIWARE Cygnus - Example of historical storage using MongoDB](docs/cygnus_historical_storage.md)
     - [Creating a third-party dashboard](docs/creating_dashboard.md)
     - [Creating an entity through the POST method done in Python - Android](docs/create_post_entity.md)
