@@ -1,6 +1,6 @@
 ## FIWARE Cygnus - Start historical storage using MongoDB
 
-#### subscription
+#### Send a subscription to Orion Context Broker 
 
 ```
 curl -X POST \
