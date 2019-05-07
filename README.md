@@ -29,8 +29,8 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
     - [FIWARE Cygnus - Enable historical data using MongoDB](docs/cygnus_historical_storage.md)
     - [Creating a third-party dashboard](docs/creating_dashboard.md)
     - [Creating an entity through the POST method done in Python - Android](docs/create_post_entity.md)
-    - [Sending data through the POST method done in Python - Android](docs/create_post_by_python.md)
-    - [Receiving data though the GET method done in Python - Android](docs/create_get_by_python.md)
+    - [Sending data through the POST method in Python - Android](docs/create_post_by_python.md)
+    - [Receiving data though the GET method in Python - Android](docs/create_get_by_python.md)
 
 > The CORS (Cross-Origin Resource Sharing) support has been disabled in Mars 0.0.2 release. 
 <br>
