@@ -26,3 +26,4 @@
 
 ![](img/walkthrough/stop.png)
 
+> You can try if your context broker is working properly typing http or https://<helix_ip>:1026/version in your web browser.
