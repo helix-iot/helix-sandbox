@@ -25,7 +25,7 @@ http://<HELIX_IP>:1026/v2/subscriptions \
   "throttling": 5
 }
 '
-
+```
 #### Viewing historical data in MongoDB
 
 > You can use MongoDB Compass to view historical data. Try https://www.mongodb.com/products/compass
