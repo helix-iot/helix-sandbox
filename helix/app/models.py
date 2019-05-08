@@ -379,7 +379,7 @@ class Broker(db.Model):
 	        name="{}_cygnus".format(self.name),
                 environment=[
                 "CYGNUS_MONGO_HOSTS={}_mongodb:27017".format(self.name),
-                "CYGNUS_LOG_LEVEL=DEBUG",
+                "CYGNUS_LOG_LEVEL=INFO",
                 "CYGNUS_SERVICE_PORT=5050",
                 "CYGNUS_API_PORT=5080"
                 ],
