@@ -2,11 +2,11 @@
 
 Create and start a Orion Context Broker through the Helix Sandbox Dashboard
 
-##Tips
+## NGSI-LD Standard
 
-Fiware data model recommend that use the ngsi-ld standards, for example:
+Fiware data model recommend that use the ngsi-ld standards to create a entity, for example:
 
-If you have two Arduinos, you can discribe them as follows:
+If you have two iot_devices, you can discribe them as follows:
 
 -Arduino 1
 
