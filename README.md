@@ -53,7 +53,7 @@ https://fiware-datamodels.readthedocs.io/en/latest/index.html
 #### IoT Agent CoAP with DTLS - Secure FIWARE
 https://github.com/m4n3dw0lf/SecureFiware
 
-#### Postman Collection - Orion Context Broker
+#### Postman Collection - The most used http methods within Orion Context Broker
 https://1drv.ms/u/s!An8b07tWUJ1DiOwn9bo5BoloZwNjEA
 
 #### Temperature Sensor - send data to Helix Sandbox from Arduino - code
