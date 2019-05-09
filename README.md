@@ -27,7 +27,6 @@ Helix Sandbox is a Powered by FIWARE Platform that is fully compatible with FIWA
     - [FIWARE Orion Context Broker - Create, configure and start](docs/create_broker.md)
     - [FIWARE IoT Agent CoAP/LWM2M - Create, configure and start](docs/coap_lwm2m.md)
     - [FIWARE Cygnus - Enable historical data using MongoDB](docs/cygnus_historical_storage.md)
-    - [Creating a third-party dashboard](docs/creating_dashboard.md)
     - [Creating, sending and receiving data context in Python](docs/python.md)
     
 
