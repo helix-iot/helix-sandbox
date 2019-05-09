@@ -56,10 +56,10 @@ https://github.com/m4n3dw0lf/SecureFiware
 #### Postman Collection - The most used http methods within Orion Context Broker
 https://1drv.ms/u/s!An8b07tWUJ1DiOwn9bo5BoloZwNjEA
 
-#### Temperature Sensor - send data to Helix Sandbox from Arduino - code
+#### Temperature Sensor - Sending data to Helix Sandbox from Arduino - code
 https://goo.gl/nX8iMG
 
-#### Temperature Sensor - send data to Helix Sandbox from Arduino - electrical schema
+#### Temperature Sensor - Sending data to Helix Sandbox from Arduino - electrical schema
 https://goo.gl/TxBwJa
 
 #### Android Python
