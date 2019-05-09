@@ -6,7 +6,7 @@
 curl -X POST \
 -H "Content-Type:application/json" \
 -H "Accept:application/json" \
-http://<HELIX_IP>:1026/v2/subscriptions \
+http://<helix_ip>:1026/v2/subscriptions \
 -d '{
   "description": "Notify Cygnus of all context changes",
   "subject": {
