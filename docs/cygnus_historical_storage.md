@@ -26,7 +26,7 @@ http://<helix_ip>:1026/v2/subscriptions \
 }
 '
 ```
-#### Viewing historical data in MongoDB
+#### Viewing historical data from MongoDB
 
 > You can use MongoDB Compass to view historical data. Try https://www.mongodb.com/products/compass
 
