@@ -1,3 +1,4 @@
+## Creating, Sending and Receiving data context from Orion Context Broker
 ### Requirements
 
 Create and start a Orion Context Broker through the Helix Sandbox Dashboard
@@ -10,15 +11,15 @@ If you have two iot_devices, you can discribe them as follows:
 
 - Arduino 1
 
-type: "iot_device"
+    type: "iot_device"
 
-id: "urn:ngsi-ld:iot:001"
+    id: "urn:ngsi-ld:iot:001"
 
 - Arduino 2
 
-type: "iot_device"
+    type: "iot_device"
 
-id: "urn:ngsi-ld:iot:002"
+    id: "urn:ngsi-ld:iot:002"
 
 ### Creating a context entity
 ```
