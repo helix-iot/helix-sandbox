@@ -9,13 +9,13 @@ Fiware data model recommend that use the ngsi-ld standards to create a entity, f
 
 If you have two iot_devices, you can discribe them as follows:
 
-- Arduino 1
+- Rasp 1
 
     type: "iot_device"
 
     id: "urn:ngsi-ld:iot:001"
 
-- Arduino 2
+- Rasp 2
 
     type: "iot_device"
 
