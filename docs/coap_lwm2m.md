@@ -9,7 +9,7 @@ You must created a Context Broker to start this how-to.
 - step 4. [Creating an Agent - CoAP only](create_agent.md)
 - step 5. [Assigning an Attribute to a Service - CoAP only](assign_attribute.md)
 - step 6. [Assigning a Service to a Device CoAP only](assign_service.md)
-- step 7. [Assigning an Agent to a Broker - CoAP only](assig_agent.md)
+- step 7. [Assigning an Agent to a Broker - CoAP only](assign_agent.md)
 - step 8. [Assigning a Device to an Agent - CoAP only](assign_device.md)
 - step 9. [Connecting to the Agent using the Device - CoAP only](connecting_device.md)
 
